@@ -15,13 +15,22 @@
 
    <el-col :span="20" style="border-radius:0 15px 15px 15px;background:#ffffff;min-height:500px">
 
-    <!-- <el-input v-model="search" placeholder="输入搜索内容" style="width:73%"></el-input>
-    <el-select v-model="methodSelector" placeholder="搜索标题">
-      <el-option label="搜索标题" value="0"></el-option>
-      <el-option label="搜索描述" value="1"></el-option>
-    </el-select>
-    <el-button type="primary" icon="el-icon-search" size="small" @click="searchByTitleOrContent">搜索</el-button> -->
+    <el-radio-group v-model="dischargable">
+      <el-radio-button label="0">不启用此筛选项</el-radio-button>
+      <el-radio-button label="" disabled><i class="el-icon-caret-right"></i></el-radio-button>
+      <el-radio-button label="1">已可出院</el-radio-button>
+      <el-radio-button label="2">不可出院</el-radio-button>
+    </el-radio-group>
+
+    <el-radio-group v-model="dischargable">
+      <el-radio-button label="0">不启用此筛选项</el-radio-button>
+      <el-radio-button label="" disabled><i class="el-icon-caret-right"></i></el-radio-button>
+      <el-radio-button label="1">已可出院</el-radio-button>
+      <el-radio-button label="2">不可出院</el-radio-button>
+    </el-radio-group>
+
    </el-col>
+
   </div>
 </template>
 
@@ -32,7 +41,7 @@ export default {
   name: 'Search_doctor',
   data () {
     return {
-      
+      dischargable:'0',
     }
   },
   methods:{
