@@ -118,18 +118,21 @@ export default {
 
       superSearch (target,type,area,level,dischargable,pending,patient_status,selector,selector_value) 
       {
-          this.$axios.post('/api/login.php',{
-             user_ID:this.loginForm.id,
-             password:this.loginForm.password,
+          this.$axios.post('/api/superSearch.php',{
+             target:target,
+             type:type,
+             area:area,
+             level:level,
+             dischargable:dischargable,
+             pending:pending,
+             patient_status:patient_status,
+             selector:selector,
+             selector_value:selector_value
            }).then((response) => {
              console.log(response);
              console.log(response.data);
-             if (response.data.login=="0") {
-               alert('登陆失败');
-             }else if (response.data.login=="1") {
-               alert('登录成功');
-               this.$router.push({ name: 'Home', params: { id:this.loginForm.id ,name:response.data.name }});
-             }
+             
+             
 
              }).catch((error) => {
              console.log(error);
