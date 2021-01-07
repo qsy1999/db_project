@@ -51,24 +51,22 @@
         if(this.loginForm.id==''||this.loginForm.password==''){
           alert("用户名或密码不能为空");
         }else{
-          // this.$axios.post('/api/php/login.php',{
-          //    id:this.loginForm.id,
-          //    password:this.loginForm.password,
-          //  }).then((response) => {
-          //    console.log(response);
-          //    console.log(response.data);
-          //    if (response.data.success=="0") {
-          //      alert('用户名不存在');
-          //    }else if (response.data.success=="1") {
-          //      alert('密码错误');
-          //    }else{
-          //      alert('登录成功');
-          //      this.$router.replace('/');
-          //    }
+          this.$axios.post('/api/php/login.php',{
+             user_ID:this.loginForm.id,
+             password:this.loginForm.password,
+           }).then((response) => {
+             console.log(response);
+             console.log(response.data);
+             if (response.data.login=="0") {
+               alert('登陆失败');
+             }else if (response.data.login=="1") {
+               alert('登录成功');
+               this.$router.push({ name: 'Home', params: { id:loginForm.id ,name:response.data.name }});
+             }
 
-          //    }).catch((error) => {
-          //    console.log(error);
-          //});
+             }).catch((error) => {
+             console.log(error);
+          });
         }
       },
 

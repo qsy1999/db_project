@@ -6,9 +6,13 @@
         <i class="el-icon-first-aid-kit"></i>
         <span slot="title">查询医护人员</span>
       </el-menu-item>
-      <el-menu-item index="2" style="border-radius:0 0 0 15px" @click.native="changeSearchTarget(1);">
+      <el-menu-item index="2" @click.native="changeSearchTarget(1);">
         <i class="el-icon-user"></i>
         <span slot="title">查询病人</span>
+      </el-menu-item>
+      <el-menu-item index="3" style="border-radius:0 0 0 15px" @click.native="changeSearchTarget(2);">
+        <i class="el-icon-user"></i>
+        <span slot="title">查询病床</span>
       </el-menu-item>
     </el-menu>
    </el-col>
@@ -72,7 +76,14 @@
       </el-input>
 
       <el-button style="margin:30px 0 0 10px;background:#00000008">查询本区所有病房护士</el-button>      
-      <el-button style="margin:30px 0 0 10px;background:#00000008">查询本区护士长</el-button>
+    </div>
+
+    <div v-if="target=='2'">
+      <el-input v-model="selector_value" placeholder="根据病床ID查询病床" class="detail_input">
+       <el-button slot="append" icon="el-icon-search"></el-button>
+      </el-input>
+
+      <el-button style="margin:30px 0 0 10px;background:#00000008">查询本区所有病床</el-button>      
     </div>
 
     <q-table :tableData='tableData' v-if="target!='-1'"></q-table>
@@ -87,7 +98,7 @@ import '@/assets/reset.css'
 import Table from '@/components/Table'
 
 export default {
-  name: 'Search_doctor',
+  name: 'Search_chief_nurse',
   components: {
     'q-table':Table,
   },

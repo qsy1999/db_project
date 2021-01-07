@@ -4,6 +4,7 @@
 
   <div style="min-height:500px">
     <q-search></q-search>
+    <q-info-change v-if="content=='2'"></q-info-change>
   </div>
 
   <q-footer></q-footer>
@@ -18,6 +19,7 @@ import '@/assets/reset.css'
 import Footer from '@/components/Footer'
 import Nav from '@/components/Nav'
 import Search from '@/components/Search'
+import InfoChange from '@/components/InfoChange'
 
 
 export default {
@@ -26,10 +28,13 @@ export default {
     'q-footer':Footer,
     'q-nav':Nav,
     'q-search':Search,
+    'q-info-change':InfoChange
   },
   data () {
     return {
-      name: ''
+      content:'0',
+      id: this.$route.params.id,
+      name: this.this.$route.params.name,
     }
   }
 }
