@@ -13,10 +13,10 @@ mysqli_select_db( $conn, 'hospital' );
 $postData = file_get_contents('php://input');
 $requests = !empty($postData) ? json_decode($postData, true) : array();
 
-$name = $requests['name'];
+$user_ID = $requests['user_ID'];
 $password = $requests['password'];
 
-$sql = "SELECT * FROM user WHERE `name` = '$name'and `password` = '$password'";
+$sql = "SELECT * FROM user WHERE `user_ID` = '$user_ID'and `password` = '$password'";
 $result = $conn->query($sql);
 
 if($result->num_rows == 0){
@@ -24,7 +24,7 @@ if($result->num_rows == 0){
     echo json_encode($msg);
 }else{    
     $row = mysqli_fetch_assoc($result);
-    $msg = ['login'=>'1','name'=>$row['name']];
+    $msg = ['login'=>'1','name'=>`$row['name']`];
     echo json_encode($msg);
     
 }
