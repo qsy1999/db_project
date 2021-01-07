@@ -1,3 +1,4 @@
+use hospital;
 -- triggers
 create trigger isolation_to_treatment
   after update

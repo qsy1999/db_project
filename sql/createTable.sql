@@ -1,7 +1,7 @@
 create schema Hospital;
 use hospital;
 
-create table User (
+create table user (
   user_ID  int AUTO_INCREMENT,
   name     varchar(20),
   password varchar(20) not null,
