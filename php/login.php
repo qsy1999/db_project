@@ -1,7 +1,7 @@
 <?php
 $dbhost = 'localhost:3306';  // mysql服务器主机地址
-$dbuser = 'root';            // mysql用户名
-$dbpass = '111111';          // mysql用户名密码
+$dbuser = 'master';            // mysql用户名
+$dbpass = '123456';          // mysql用户名密码
 $conn = mysqli_connect($dbhost, $dbuser, $dbpass);
 if(! $conn )
 {
@@ -24,7 +24,7 @@ if($result->num_rows == 0){
     echo json_encode($msg);
 }else{    
     $row = mysqli_fetch_assoc($result);
-    $msg = ['login'=>'1','name'=>`$row['name']`];
+    $msg = ['login'=>'1','name'=>$row['name']];
     echo json_encode($msg);
     
 }

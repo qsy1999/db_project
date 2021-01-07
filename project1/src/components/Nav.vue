@@ -30,6 +30,9 @@ export default {
 
     }
   },
+  props:{
+      name:String,
+  },
   methods:{
     
   },

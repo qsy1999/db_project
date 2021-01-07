@@ -51,7 +51,7 @@
         if(this.loginForm.id==''||this.loginForm.password==''){
           alert("用户名或密码不能为空");
         }else{
-          this.$axios.post('/api/php/login.php',{
+          this.$axios.post('/api/login.php',{
              user_ID:this.loginForm.id,
              password:this.loginForm.password,
            }).then((response) => {
@@ -61,7 +61,7 @@
                alert('登陆失败');
              }else if (response.data.login=="1") {
                alert('登录成功');
-               this.$router.push({ name: 'Home', params: { id:loginForm.id ,name:response.data.name }});
+               this.$router.push({ name: 'Home', params: { id:this.loginForm.id ,name:response.data.name }});
              }
 
              }).catch((error) => {

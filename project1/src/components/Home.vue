@@ -1,6 +1,6 @@
 <template>
  <div>
-  <q-nav></q-nav>
+  <q-nav :name='name'></q-nav>
 
   <div style="min-height:500px">
     <q-search></q-search>
@@ -33,9 +33,13 @@ export default {
   data () {
     return {
       content:'0',
-      id: this.$route.params.id,
-      name: this.this.$route.params.name,
+      id: 'this.$route.params.id',
+      name: 'this.this.$route.params.name',
     }
+  },
+  mounted(){
+    this.id=this.$route.params.id;
+    this.name=this.$route.params.name;
   }
 }
 </script>
