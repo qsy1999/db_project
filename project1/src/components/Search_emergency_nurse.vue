@@ -1,20 +1,6 @@
 <template>
-  <div>
-   <el-col :span="4" >
-    <el-menu style="border-radius:15px 0 0 15px;background:#ffffff;border-right:none">
-      <el-menu-item index="1" style="border-radius:15px 0 0 0" @click.native="changeSearchTarget(0);">
-        <i class="el-icon-first-aid-kit"></i>
-        <span slot="title">查询医护人员</span>
-      </el-menu-item>
-      <el-menu-item index="2" style="border-radius:0 0 0 15px" @click.native="changeSearchTarget(1);">
-        <i class="el-icon-user"></i>
-        <span slot="title">查询病人</span>
-      </el-menu-item>
-    </el-menu>
-   </el-col>
+  <div style="border-radius:15px;background:#ffffff;min-height:500px">
 
-   <el-col :span="20" style="border-radius:0 15px 15px 15px;background:#ffffff;min-height:500px">
-    <div v-if="target=='0'">
     <el-input v-model="selector_value" placeholder="若不需查询具体名字或ID，点击查询所有" class="detail_input">
       <el-select v-model="selector" slot="prepend" placeholder="请选择" class="selector">
         <el-option label="病人姓名" value="1"></el-option>
@@ -24,7 +10,7 @@
       <el-button slot="append" icon="el-icon-search"></el-button>
     </el-input>
 
-    <el-button style="margin:30px 0 0 10px;background:#00000008">查询负责区域所有病人列表</el-button>
+    <el-button style="margin:30px 0 0 10px;background:#00000008">查询所有病人列表</el-button>
 
     <el-dropdown trigger="click" :hide-on-click="false" >
       <span class="el-dropdown-link">
@@ -58,26 +44,35 @@
             <el-radio-button label="3">&nbsp&nbsp&nbsp&nbsp病亡&nbsp&nbsp&nbsp&nbsp</el-radio-button>
           </el-radio-group>
         </el-dropdown-item>
+
+        <el-dropdown-item class="select-item">
+          <el-radio-group v-model="area">
+            <el-radio-button label="0">不启用此筛选项</el-radio-button>
+            <el-radio-button label="" disabled><i class="el-icon-caret-right"></i></el-radio-button>
+            <el-radio-button label="1">&nbsp&nbsp隔离区&nbsp&nbsp</el-radio-button>
+            <el-radio-button label="2">轻症治疗区域</el-radio-button>
+            <el-radio-button label="3">重症治疗区域</el-radio-button>
+            <el-radio-button label="4">危重症治疗区域</el-radio-button>
+
+          </el-radio-group>
+        </el-dropdown-item>
+
+        <el-dropdown-item class="select-item">
+          <el-radio-group v-model="level">
+            <el-radio-button label="0" >不启用此筛选项</el-radio-button>
+            <el-radio-button label="" disabled><i class="el-icon-caret-right"></i></el-radio-button>
+            <el-radio-button label="1">&nbsp&nbsp轻症&nbsp&nbsp</el-radio-button>
+            <el-radio-button label="2">&nbsp&nbsp重症&nbsp&nbsp</el-radio-button>
+            <el-radio-button label="3">危重症</el-radio-button>
+          </el-radio-group>
+        </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
-    </div>
 
-    <div v-if="target=='1'">
-      <el-input v-model="selector_value" placeholder="根据名字或ID查询病房护士" class="detail_input">
-       <el-select v-model="selector" slot="prepend" placeholder="请选择" class="selector">
-        <el-option label="姓名" value="1"></el-option>
-        <el-option label="ID" value="2"></el-option>
-       </el-select>
-       <el-button slot="append" icon="el-icon-search"></el-button>
-      </el-input>
-
-      <el-button style="margin:30px 0 0 10px;background:#00000008">查询本区所有病房护士</el-button>      
-      <el-button style="margin:30px 0 0 10px;background:#00000008">查询本区护士长</el-button>
-    </div>
 
     <q-table :tableData='tableData' :type='target' v-if="target!='-1'"></q-table>
 
-   </el-col>
+
 
   </div>
 </template>
@@ -87,7 +82,7 @@ import '@/assets/reset.css'
 import Table from '@/components/Table'
 
 export default {
-  name: 'Search_doctor',
+  name: 'Search_chief_nurse',
   components: {
     'q-table':Table,
   },
@@ -95,7 +90,7 @@ export default {
     return {
       area:'0',
       level:'0',
-      target:'-1',
+      target:'0',
       dischargable:'0',
       pending:'0',
       patient_status:'0',
@@ -111,30 +106,7 @@ export default {
     }
   },
   methods:{
-      changeSearchTarget(target)
-      {
-        this.target=target;
-      },
 
-      superSearch (target,type,area,level,dischargable,pending,patient_status,selector,selector_value) 
-      {
-          this.$axios.post('/api/login.php',{
-             user_ID:this.loginForm.id,
-             password:this.loginForm.password,
-           }).then((response) => {
-             console.log(response);
-             console.log(response.data);
-             if (response.data.login=="0") {
-               alert('登陆失败');
-             }else if (response.data.login=="1") {
-               alert('登录成功');
-               this.$router.push({ name: 'Home', params: { id:this.loginForm.id ,name:response.data.name }});
-             }
-
-             }).catch((error) => {
-             console.log(error);
-          });
-      },
     }
 }
 </script>
@@ -148,8 +120,9 @@ export default {
     width:150px
   }
   .detail_input{
-    margin-left:50px;
+    margin-left:200px;
     width:500px
   }
+
 
 </style>

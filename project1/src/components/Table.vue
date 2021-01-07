@@ -1,4 +1,5 @@
 <template>
+  <div>
     <el-table
       :data="tableData"
       style="width: 80%; margin:10px 10%">
@@ -8,8 +9,15 @@
         width="180">
       </el-table-column>
       <el-table-column
+        v-if="type!=2"
         prop="name"
         label="姓名"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        v-if="type==2"
+        prop="name"
+        label="病人姓名"
         width="180">
       </el-table-column>
       <el-table-column
@@ -24,7 +32,7 @@
        </template>
       </el-table-column>
     </el-table>
-
+  </div>
 
 </template>
 

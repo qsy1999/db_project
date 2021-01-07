@@ -32,7 +32,7 @@ export default {
   },
   data () {
     return {
-      content:'0',
+      content:'1',
       id: 'this.$route.params.id',
       name: 'this.this.$route.params.name',
     }

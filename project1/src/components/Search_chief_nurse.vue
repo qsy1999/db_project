@@ -86,7 +86,7 @@
       <el-button style="margin:30px 0 0 10px;background:#00000008">查询本区所有病床</el-button>      
     </div>
 
-    <q-table :tableData='tableData' v-if="target!='-1'"></q-table>
+    <q-table :tableData='tableData' :type='target' v-if="target!='-1'"></q-table>
 
    </el-col>
 
@@ -104,17 +104,19 @@ export default {
   },
   data () {
     return {
+      area:'0',
+      level:'0',
       target:'-1',
       dischargable:'0',
       pending:'0',
       patient_status:'0',
-      selector:'',
+      selector:'0',
       selector_value:'',
       tableData:[
         {
-          id:'01',
-          name:'haha',
-          area:'sile'
+          id:'--',
+          name:'--',
+          area:'--'
         },
       ]
     }
