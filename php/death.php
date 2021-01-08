@@ -14,8 +14,12 @@ $postData = file_get_contents('php://input');
 $requests = !empty($postData) ? json_decode($postData, true) : array();
 
 $id = $requests['id'];
-$sql = "UPDATE bed SET duty_nurse_ID = NULL WHERE `duty_nurse_ID` = '$id'";
+
+$sql = "UPDATE bed SET patient_ID = NULL WHERE `patient_ID` = '$id'";
 $result = $conn->query($sql);
+
+
+
 
 if(!$result){
     $msg=['success'=>'0'];

@@ -22,10 +22,10 @@
         <el-option label="病人ID" value="2"></el-option>
         <el-option label="病房护士ID" value="3"></el-option>
       </el-select>
-      <el-button slot="append" icon="el-icon-search"></el-button>
+      <el-button slot="append" icon="el-icon-search" @click.native="searchWithSelectorValue"></el-button>
     </el-input>
 
-    <el-button style="margin:30px 0 0 10px;background:#00000008">查询负责区域所有病人列表</el-button>
+    <el-button style="margin:30px 0 0 10px;background:#00000008" @click.native="searchWithoutSelectorValue">查询负责区域所有病人列表</el-button>
 
     <el-dropdown trigger="click" :hide-on-click="false" >
       <span class="el-dropdown-link">
@@ -69,7 +69,7 @@
     <q-table :tableData='tableData' :type='target' :auth='0' id='id' v-if="target!='-1'"></q-table>
 
    </el-col>
-  
+
   </div>
 </template>
 
@@ -124,9 +124,21 @@ export default {
              console.log(error);
           });
       },
+
+      searchWithSelectorValue()
+      {
+        this.superSearch(this.target,this.area,0,this.selector,this.selector_value);
+      },
+      searchWithoutSelectorValue()
+      {
+        this.superSearch(this.target,this.area,this.special,0,0);
+      }
+
     },
     mounted(){
-      this.area=this.area_type;
+      if(this.area_type=="mild")this.area=2;
+      if(this.area_type=="intense")this.area=3;
+      if(this.area_type=="critical")this.area=4;
     }
 }
 </script>

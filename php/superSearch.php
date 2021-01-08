@@ -22,6 +22,7 @@ $selector_value = $requests['selector_value'];
 $select = 'select *';
 $from = 'from';
 $where = 'where';
+$sql = 'select patient.patient_ID, patient.name, patient.treatment_area from patient join nucleic_acid_testing_result where patient.patient_ID = nucleic_acid_testing_result.patient_ID and nucleic_acid_testing_result.result_ID = (select max(nucleic_acid_testing_result.result_ID) from nucleic_acid_testing_result where nucleic_acid_testing_result.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.level = "mild"';
 
 if($target == '0'){  
         if($special == '1'){
@@ -46,36 +47,36 @@ if($target == '0'){
             $sql = 'select patient.patient_ID, patient.name, patient.treatment_area from patient , patient_status, nucleic_acid_testing_result where patient_status.patient_ID = patient.patient_ID and patient_status.record_ID = (select max(patient_status.record_ID) from patient_status where patient_status.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.result_ID = patient_status.result_ID and nucleic_acid_testing_result.level = patient.treatment_area';
         }
         if($special == '8'){
-            $sql = 'select patient.patient_ID, patient.name, patient.treatment_area from patient , patient_status where patient_status.patient_ID = patient.patient_ID and patient_status.record_ID = (select max(patient_status.record_ID) from patient_status where patient_status.patient_ID = patient.patient_ID) and patient_status.life_status = "discharged"';
+            $sql = "select patient.patient_ID, patient.name, patient.treatment_area from patient , patient_status where patient_status.patient_ID = patient.patient_ID and patient_status.record_ID = (select max(patient_status.record_ID) from patient_status where patient_status.patient_ID = patient.patient_ID) and patient_status.life_status = 'discharged'";
         }
         if($special == '9'){
-            $sql = 'select patient.patient_ID, patient.name, patient.treatment_area from patient , patient_status where patient_status.patient_ID = patient.patient_ID and patient_status.record_ID = (select max(patient_status.record_ID) from patient_status where patient_status.patient_ID = patient.patient_ID) and patient_status.life_status = "treating"';
+            $sql = "select patient.patient_ID, patient.name, patient.treatment_area from patient , patient_status where patient_status.patient_ID = patient.patient_ID and patient_status.record_ID = (select max(patient_status.record_ID) from patient_status where patient_status.patient_ID = patient.patient_ID) and patient_status.life_status = 'treating'";
         }
         if($special == '10'){
-            $sql = 'select patient.patient_ID, patient.name, patient.treatment_area from patient , patient_status where patient_status.patient_ID = patient.patient_ID and patient_status.record_ID = (select max(patient_status.record_ID) from patient_status where patient_status.patient_ID = patient.patient_ID) and patient_status.life_status = "dead"';
+            $sql = "select patient.patient_ID, patient.name, patient.treatment_area from patient , patient_status where patient_status.patient_ID = patient.patient_ID and patient_status.record_ID = (select max(patient_status.record_ID) from patient_status where patient_status.patient_ID = patient.patient_ID) and patient_status.life_status = 'dead'";
         }
         if ($special == '0'){
             if($selector == '1'){
-                $sql = "select  patient.patient_ID, patient.name, patient.treatment_area from patient where name = $selector_value;";
+                $sql = "select  patient.patient_ID, patient.name, patient.treatment_area from patient where name = '$selector_value' ";
             }
             if($selector == '2'){
-                $sql = "select  patient.patient_ID, patient.name, patient.treatment_area from patient where patient_ID = $selector_value;";
+                $sql = "select  patient.patient_ID, patient.name, patient.treatment_area from patient where patient_ID = '$selector_value' ";
             }
             if($selector == '3'){
-                $sql = "select  patient.patient_ID, patient.name, patient.treatment_area from patient natural join bed where bed.duty_nurse_ID = $selector_value;";
+                $sql = "select  patient.patient_ID, patient.name, patient.treatment_area from patient natural join bed where bed.duty_nurse_ID = '$selector_value' ";
             }
         }  
     if($area == '1'){
-        $sql += "and patient.treatment_area = 'isolated area'";
+        $sql .= "and patient.treatment_area = 'isolated area'";
     }
     if($area == '2'){
-        $sql += "and patient.treatment_area = 'mild'";
+        $sql .= "and patient.treatment_area = 'mild'";
     }
     if($area == '3'){
-        $sql += "and patient.treatment_area = 'intense'";
+        $sql .= "and patient.treatment_area = 'intense'";
     }
     if($area == '4'){
-        $sql += "and patient.treatment_area = 'critical'";
+        $sql .= "and patient.treatment_area = 'critical'";
     }
 }
 
@@ -87,95 +88,25 @@ $set = array();
 $result = $conn->query($sql);
 
 if(!$result){
-    $msg=['success'=>'0'];
+    $msg=['success'=>$sql];
     echo json_encode($msg);
 }
 else {
-    while(!($row = mysqli_fetch_assoc($result))){
-        array_push($set,$row);
+    while(($row = mysqli_fetch_assoc($result))){
+        $newRow = ['id'=>$row['patient_ID'],'name'=>$row['name'],'area'=>$row['treatment_area']];
+        array_push($set,$newRow);
         
     }
+
     echo json_encode($set);
+
+
+    
+    // $msg=['success'=>$sql];
+    // echo json_encode($msg);
    
 }
 
 
-target 0 area 0 special 0;
-select patient_ID, name, treatment_area from patient natural join bed
-target 0 area 0 special 1;
-select patient_ID, name, treatment_area from patient natural join bed where bed.treatment_area = mild
-target 0 area 0 special 2;
-select patient_ID, name, treatment_area from patient natural join bed where bed.treatment_area = intense
-target 0 area 0 special 3;
-select patient_ID, name, treatment_area from patient natural join bed where bed.treatment_area = critical
-target 0 area 0 special 4;
-select patient_ID, name, treatment_area from patient natural join bed where bed.treatment_area = mild and select
-target 0 area 0 special 5;
-target 0 area 0 special 6;
-target 0 area 0 special 7;
-target 0 area 0 special 8;
-target 0 area 0 special 9;
-target 0 area 0 special 10;
-
-target 0 area 1 special 0;
-target 0 area 1 special 1;
-target 0 area 1 special 2;
-target 0 area 1 special 3;
-target 0 area 1 special 4;
-target 0 area 1 special 5;
-target 0 area 1 special 6;
-target 0 area 1 special 7;
-target 0 area 1 special 8;
-target 0 area 1 special 9;
-target 0 area 1 special 10;
-
-target 0 area 2 special 0;
-target 0 area 2 special 1;
-target 0 area 2 special 2;
-target 0 area 2 special 3;
-target 0 area 2 special 4;
-target 0 area 2 special 5;
-target 0 area 2 special 6;
-target 0 area 2 special 7;
-target 0 area 2 special 8;
-target 0 area 2 special 9;
-target 0 area 2 special 10;
-
-target 0 area 3 special 0;
-target 0 area 3 special 1;
-target 0 area 3 special 2;
-target 0 area 3 special 3;
-target 0 area 3 special 4;
-target 0 area 3 special 5;
-target 0 area 3 special 6;
-target 0 area 3 special 7;
-target 0 area 3 special 8;
-target 0 area 3 special 9;
-target 0 area 3 special 10;
-
-target 0 area 4 special 0;
-target 0 area 4 special 1;
-target 0 area 4 special 2;
-target 0 area 4 special 3;
-target 0 area 4 special 4;
-target 0 area 4 special 5;
-target 0 area 4 special 6;
-target 0 area 4 special 7;
-target 0 area 4 special 8;
-target 0 area 4 special 9;
-target 0 area 4 special 10;
-
-
-$result = $conn->query($sql);
-
-if(!$result){
-    $msg=['success'=>'0'];
-    echo json_encode($msg);
-}
-else {
-    $msg=['success'=>'1'];
-    echo json_encode($msg);
-}
-   
 mysqli_close($conn);
 ?>
