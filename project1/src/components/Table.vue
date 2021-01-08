@@ -45,8 +45,8 @@
       <el-button type="success" size="small" @click="changeShow()">切换&nbsp状态/核酸检测单</el-button>
       <el-button type="primary" size="small" v-if="auth==0" @click="show=2">添加新核酸检测记录</el-button>
       <el-button type="primary" size="small" v-if="auth==3" @click="show=3">&nbsp&nbsp&nbsp&nbsp信息登记&nbsp&nbsp&nbsp&nbsp</el-button>
-      <el-button type="primary" size="small" v-if="auth==0">确认病人死亡</el-button>
-      <el-button type="primary" size="small" v-if="auth==0">允许病人出院</el-button>
+      <el-button type="primary" size="small" v-if="auth==0" @click="changeLifeStatus('dead')">确认病人死亡</el-button>
+      <el-button type="primary" size="small" v-if="auth==0" @click="changeLifeStatus('discharged')">允许病人出院</el-button>
       </div>
       <br>
       <el-table
@@ -315,7 +315,25 @@ export default {
              console.log(error);
           });
       },
+      changeLifeStatus(type)
+      {
+          this.$axios.post('/api/changeLifeStatus.php',{
+	          id:this.detail.id,
+	          doctor_id:this.id,
+	          type:type,
+           }).then((response) => {
+             console.log(response);
+             console.log(response.data);
+             if (response.data.success=="0") {
+               alert('失败');
+             }else if (response.data.success=="1") {
+               alert('成功');
+             }
 
+             }).catch((error) => {
+             console.log(error);
+          });
+      },
       recordPatient()
       {
           this.$axios.post('/api/recordPatient.php',{
