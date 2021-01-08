@@ -30,23 +30,7 @@
 
   );
 
-  -- 添加record_id作为主键，合并了联系集“记录”和“曾经处于”和“包含”
-  create table patient_status (
-    record_ID   int AUTO_INCREMENT,
-    result_ID   int,
-    patient_ID  int,
-    bed_ID      int,
-    recorder_ID int,
-    temperature numeric(3, 1),
-    symptom     varchar(20),
-    life_status enum('discharged', 'treating', 'dead') not null,
-    time        datetime,
-    primary key (record_ID),
-    foreign key (patient_ID) references patient (patient_ID),
-    foreign key (bed_ID) references bed (bed_ID),
-    foreign key (recorder_ID) references user (user_ID),
-    foreign key (result_ID) references nucleic_acid_testing_result (result_ID)
-  );
+
 
   -- 合并了“负责”和“负责”
   create table treatment_area (
@@ -71,7 +55,24 @@
     foreign key (treatment_area) references treatment_area (type),
     foreign key (patient_ID) references patient (patient_ID)
   );
-
+  
+  -- 添加record_id作为主键，合并了联系集“记录”和“曾经处于”和“包含”
+  create table patient_status (
+    record_ID   int AUTO_INCREMENT,
+    result_ID   int,
+    patient_ID  int,
+    bed_ID      int,
+    recorder_ID int,
+    temperature numeric(3, 1),
+    symptom     varchar(20),
+    life_status enum('discharged', 'treating', 'dead') not null,
+    time        datetime,
+    primary key (record_ID),
+    foreign key (patient_ID) references patient (patient_ID),
+    foreign key (bed_ID) references bed (bed_ID),
+    foreign key (recorder_ID) references user (user_ID),
+    foreign key (result_ID) references nucleic_acid_testing_result (result_ID)
+  );
 
   create table message(
     message_ID int,
