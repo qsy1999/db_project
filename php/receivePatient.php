@@ -53,6 +53,12 @@ else {
         $bed_ID = $row['bed_ID'];
         $sql = "UPDATE bed set `patient_ID` = '$patient_ID' WHERE `bed_ID` = '$bed_ID'";
         $result = $conn->query($sql);
+        $sql = "UPDATE patient set `treatement_area` = '$level' WHERE `patient_ID` = '$patient_ID'";
+        $result = $conn->query($sql);
+    }
+    else{
+        $sql = "UPDATE patient set `treatement_area` = 'isolated area' WHERE `patient_ID` = '$patient_ID'";
+        $result = $conn->query($sql);
     }
 
     if(!$result){ 

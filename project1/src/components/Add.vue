@@ -12,7 +12,7 @@
                box-shadow: 0 0 25px #cac6c6;"
              label-position="left"
              label-width="0px"
-             v-if="mode!='0'">
+             v-if="mode=='chief nurse'">
       <el-form-item prop="name">
         <el-input type="text"
                   prefix-icon="el-icon-user-solid"
@@ -55,7 +55,7 @@
                box-shadow: 0 0 25px #cac6c6;"
              label-position="left"
              label-width="0px"
-             v-if="mode=='1'">
+             v-if="mode=='emergency nurse'">
       <el-form-item prop="name">
         <el-input type="text"
                   prefix-icon="el-icon-user-solid"
