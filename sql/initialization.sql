@@ -74,8 +74,8 @@ insert into patient_status(result_ID,patient_ID,recorder_ID,temperature,symptom,
 values(5,1,4,36.8,'','treating','2019-03-06 01:53');
 
 insert into patient_status(result_ID,patient_ID,recorder_ID,temperature,symptom,life_status,time) 
-values(4,1,4,36.8,'','treating','2019-03-05 01:53');
+values(4,2,4,36.8,'','treating','2019-03-05 01:53');
 insert into patient_status(result_ID,patient_ID,recorder_ID,temperature,symptom,life_status,time) 
-values(6,1,4,36.8,'','treating','2019-03-06 01:53');
+values(6,2,4,36.8,'','treating','2019-03-06 01:53');
 
 
