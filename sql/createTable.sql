@@ -13,6 +13,7 @@
   create table patient (
     patient_ID int AUTO_INCREMENT,
     name       varchar(20),
+    treatment_area enum('mild', 'intense', 'critical','isolated area') not null,
     primary key (patient_ID)
   );
 
@@ -55,7 +56,7 @@
     foreign key (treatment_area) references treatment_area (type),
     foreign key (patient_ID) references patient (patient_ID)
   );
-  
+
   -- 添加record_id作为主键，合并了联系集“记录”和“曾经处于”和“包含”
   create table patient_status (
     record_ID   int AUTO_INCREMENT,

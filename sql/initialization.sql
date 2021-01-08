@@ -47,10 +47,10 @@ values (104, 'mild', 10);
 insert into bed (room, treatment_area)
 values (104, 'mild');
 
-insert into patient(name)
-values ('a');
-insert into patient(name) 
-values ('b');
+insert into patient(name,treatment_area)
+values ('a','mild');
+insert into patient(name,treatment_area) 
+values ('b','mild');
 update bed 
 set patient_ID = (select patient_ID from patient where name = 'a') where bed_ID = 5;
 update bed 
