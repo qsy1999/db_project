@@ -6,6 +6,7 @@
     name     varchar(20),
     password varchar(20) not null,
     type     enum('doctor', 'chief nurse', 'emergency nurse', 'hospital nurse') not null,
+    treatment_area enum('mild', 'intense', 'critical','emergency') not null,
     primary key (user_ID)
   );
 

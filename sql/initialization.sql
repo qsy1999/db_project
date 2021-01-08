@@ -1,27 +1,27 @@
 use hospital;
 -- 一些初始数据
-insert into user (name, password, type)
-values ('qsy', '123123', 'doctor');
-insert into user (name, password, type)
-values ('qsu', '123123', 'doctor');
-insert into user (name, password, type)
-values ('qsi', '123123', 'doctor');
-insert into user (name, password, type)
-values ('cn1', '123123', 'chief nurse');
-insert into user (name, password, type)
-values ('cn2', '123123', 'chief nurse');
-insert into user (name, password, type)
-values ('cn3', '123123', 'chief nurse');
-insert into user (name, password, type)
-values ('hn1', '123123', 'hospital nurse');
-insert into user (name, password, type)
-values ('hn2', '123123', 'hospital nurse');
-insert into user (name, password, type)
-values ('hn3', '123123', 'hospital nurse');
-insert into user (name, password, type)
-values ('hn4', '123123', 'hospital nurse');
-insert into user (name, password, type)
-values ('en1', '123123','emergency nurse');
+insert into user (name, password, type, treatment_area)
+values ('qsy', '123123', 'doctor','mild');
+insert into user (name, password, type, treatment_area)
+values ('qsu', '123123', 'doctor','intense');
+insert into user (name, password, type, treatment_area)
+values ('qsi', '123123', 'doctor','critical');
+insert into user (name, password, type, treatment_area)
+values ('cn1', '123123', 'chief nurse','mild');
+insert into user (name, password, type, treatment_area)
+values ('cn2', '123123', 'chief nurse','intense');
+insert into user (name, password, type, treatment_area)
+values ('cn3', '123123', 'chief nurse','critical');
+insert into user (name, password, type, treatment_area)
+values ('hn1', '123123', 'hospital nurse','critical');
+insert into user (name, password, type, treatment_area)
+values ('hn2', '123123', 'hospital nurse','intense');
+insert into user (name, password, type, treatment_area)
+values ('hn3', '123123', 'hospital nurse','intense');
+insert into user (name, password, type, treatment_area)
+values ('hn4', '123123', 'hospital nurse','mild');
+insert into user (name, password, type, treatment_area)
+values ('en1', '123123','emergency nurse','emergency');
 insert into treatment_area
 values ('mild', 1, 4);
 insert into treatment_area
