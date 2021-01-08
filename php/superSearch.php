@@ -83,6 +83,21 @@ else if($target = '1'){
 
 
 }
+$set = array();
+$result = $conn->query($sql);
+
+if(!$result){
+    $msg=['success'=>'0'];
+    echo json_encode($msg);
+}
+else {
+    while(!($row = mysqli_fetch_assoc($result))){
+        array_push($set,$row);
+        
+    }
+    echo json_encode($set);
+   
+}
 
 
 target 0 area 0 special 0;
