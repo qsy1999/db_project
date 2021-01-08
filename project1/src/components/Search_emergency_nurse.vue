@@ -30,10 +30,6 @@
             <el-radio-button label="4">已可出院</el-radio-button>
             <el-radio-button label="5">不可出院</el-radio-button>
 
-            <el-radio-button label="" disabled><i class="el-icon-caret-right"></i></el-radio-button>
-            <el-radio-button label="6">正待转入</el-radio-button>
-            <el-radio-button label="7">未待转入</el-radio-button>
-<br>
             <el-radio-button label="" disabled style="margin-left:140px"><i class="el-icon-caret-right"></i></el-radio-button>
             <el-radio-button label="8">康复出院</el-radio-button>
             <el-radio-button label="9">正在治疗</el-radio-button>

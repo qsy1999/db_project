@@ -44,7 +44,18 @@ else {
 
 
     $result = $conn->query($sql);
-    if(!$result){
+
+    $sql = "SELECT bed_ID FROM bed WHERE patient_ID IS NULL and duty_nurse_ID IS NOT NULL and treatment_area = '$level'";
+    $result = $conn->query($sql);
+
+    if($result->num_rows != 0){
+        $row = mysqli_fetch_assoc($result);
+        $bed_ID = $row['bed_ID'];
+        $sql = "UPDATE bed set `patient_ID` = '$patient_ID' WHERE `bed_ID` = '$bed_ID'";
+        $result = $conn->query($sql);
+    }
+
+    if(!$result){ 
         $msg=['success'=>$sql];
         echo json_encode($msg);
     }

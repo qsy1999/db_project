@@ -4,7 +4,7 @@
 
   <div style="min-height:500px">
     <q-search v-if="content=='0'" :id='id' :auth='type' :area='area'></q-search>
-    <q-add v-if="content=='1'||content=='2'" :id='id'></q-add>
+    <q-add v-if="content=='1'||content=='2'" :id='id' :area='area' :type='type'></q-add>
     <q-info-change :id='id' v-if="content=='3'"></q-info-change>
   </div>
 

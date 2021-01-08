@@ -12,7 +12,7 @@
                box-shadow: 0 0 25px #cac6c6;"
              label-position="left"
              label-width="0px"
-             v-if="mode=='0'">
+             v-if="mode!='0'">
       <el-form-item prop="name">
         <el-input type="text"
                   prefix-icon="el-icon-user-solid"
@@ -55,7 +55,7 @@
                box-shadow: 0 0 25px #cac6c6;"
              label-position="left"
              label-width="0px"
-             v-if="mode!='1'">
+             v-if="mode=='1'">
       <el-form-item prop="name">
         <el-input type="text"
                   prefix-icon="el-icon-user-solid"
@@ -101,7 +101,7 @@
     name: 'Add',
     data () {
       return {
-        mode:'0',
+        mode:'1',
         newInfoForm: {
           name: '',
           password: '',
@@ -118,6 +118,7 @@
     props:{
       id:String,
       type:String,
+      area:String,
     },
 
     methods: {
@@ -125,8 +126,14 @@
         if(this.newInfoForm.password==''||this.newInfoForm.name==''||this.newInfoForm.password!=this.password_2){
           alert("提交失败，两次密码不一致，或是无效的密码或姓名");
         }else{
-          this.$axios.post('/api/changeInfo.php',{
-              
+          console.log(this.newInfoForm.name);
+          console.log(this.area);
+          console.log(this.newInfoForm.password);
+
+          this.$axios.post('/api/addHospitalNurse.php',{
+              name:this.newInfoForm.name,
+              area:this.area,
+              password:this.newInfoForm.password,
            }).then((response) => {
              console.log(response);
              console.log(response.data);
