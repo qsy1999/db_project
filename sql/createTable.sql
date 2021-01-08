@@ -5,9 +5,8 @@ create table user (
   user_ID  int AUTO_INCREMENT,
   name     varchar(20),
   password varchar(20) not null,
-  type     varchar(20),
-  primary key (user_ID),
-  check (type in ('doctor', 'chief nurse', 'emergency nurse', 'hospital nurse'))
+  type     enum('doctor', 'chief nurse', 'emergency nurse', 'hospital nurse') not null,
+  primary key (user_ID)
 );
 
 create table patient (
@@ -18,14 +17,13 @@ create table patient (
 
 -- 添加result_id作为主键,合并了“记录”和“被检测”
 create table nucleic_acid_testing_result (
-  result_ID   int,
+  result_ID   int AUTO_INCREMENT,
   patient_ID  int,
   recorder_ID int,
-  result      varchar(20) not null,
+  result      enum('positive','negative') not null,
   time        datetime,
-  level       varchar(20),
+  level       enum('mild', 'intense', 'critical') not null,
   primary key (result_ID),
-  check (level in ('mild', 'intense', 'critical')),
   foreign key (patient_ID) references patient (patient_ID),
   foreign key (recorder_ID) references User (user_ID)
 
@@ -39,9 +37,8 @@ create table patient_status (
   recorder_ID int,
   temperature numeric(3, 1),
   symptom     varchar(20),
-  life_status varchar(20),
+  life_status enum('discharged', 'treating', 'dead') not null,
   time        datetime,
-  check (life_status in ('discharged', 'treating', 'dead')),
   primary key (record_ID),
   foreign key (patient_ID) references patient (patient_ID),
   foreign key (record_ID) references user (user_ID),
@@ -50,11 +47,10 @@ create table patient_status (
 
 -- 合并了“负责”和“负责”
 create table treatment_area (
-  type           varchar(20),
+  type          enum('mild', 'intense', 'critical', 'isolated area') not null,
   doctor_ID      int,
   chief_nurse_ID int,
   primary key (type),
-  check (type in ('mild', 'intense', 'critical', 'isolated area')),
   foreign key (doctor_ID) references User (user_ID),
   foreign key (chief_nurse_ID) references User (user_ID)
 
@@ -65,7 +61,7 @@ create table bed (
   bed_ID         int AUTO_INCREMENT,
   patient_ID     int,
   room           int not null,
-  treatment_area varchar(20),
+  treatment_area  enum('mild', 'intense', 'critical', 'isolated area'),
   duty_nurse_ID  int,
   primary key (bed_ID),
   foreign key (duty_nurse_ID) references User (user_ID),
