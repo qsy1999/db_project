@@ -22,17 +22,17 @@ $selector_value = $requests['selector_value'];
 $select = 'select *';
 $from = 'from';
 $where = 'where';
-$sql = 'select patient.patient_ID, patient.name, patient.treatment_area from patient join nucleic_acid_testing_result where patient.patient_ID = nucleic_acid_testing_result.patient_ID and nucleic_acid_testing_result.result_ID = (select max(nucleic_acid_testing_result.result_ID) from nucleic_acid_testing_result where nucleic_acid_testing_result.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.level = "mild"';
+$sql = "select patient.patient_ID, patient.name, patient.treatment_area from patient join nucleic_acid_testing_result where patient.patient_ID = nucleic_acid_testing_result.patient_ID and nucleic_acid_testing_result.result_ID = (select max(nucleic_acid_testing_result.result_ID) from nucleic_acid_testing_result where nucleic_acid_testing_result.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.level = 'mild' ";
 
 if($target == '0'){  
         if($special == '1'){
-            $sql = "select patient.patient_ID, patient.name, patient.treatment_area from patient join nucleic_acid_testing_result where patient.patient_ID = nucleic_acid_testing_result.patient_ID and nucleic_acid_testing_result.result_ID = (select max(nucleic_acid_testing_result.result_ID) from nucleic_acid_testing_result where nucleic_acid_testing_result.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.level = 'mild'";
+            $sql = "select patient.patient_ID, patient.name, patient.treatment_area from patient join nucleic_acid_testing_result where patient.patient_ID = nucleic_acid_testing_result.patient_ID and nucleic_acid_testing_result.result_ID = (select max(nucleic_acid_testing_result.result_ID) from nucleic_acid_testing_result where nucleic_acid_testing_result.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.level = 'mild' ";
         }
         if($special == '2'){
-            $sql = "select patient.patient_ID, patient.name, patient.treatment_area from patient join nucleic_acid_testing_result where patient.patient_ID = nucleic_acid_testing_result.patient_ID and nucleic_acid_testing_result.result_ID = (select max(nucleic_acid_testing_result.result_ID) from nucleic_acid_testing_result where nucleic_acid_testing_result.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.level = 'intense'";
+            $sql = "select patient.patient_ID, patient.name, patient.treatment_area from patient join nucleic_acid_testing_result where patient.patient_ID = nucleic_acid_testing_result.patient_ID and nucleic_acid_testing_result.result_ID = (select max(nucleic_acid_testing_result.result_ID) from nucleic_acid_testing_result where nucleic_acid_testing_result.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.level = 'intense' ";
         }
         if($special == '3'){
-            $sql = "select patient.patient_ID, patient.name, patient.treatment_area from patient join nucleic_acid_testing_result where patient.patient_ID = nucleic_acid_testing_result.patient_ID and nucleic_acid_testing_result.result_ID = (select max(nucleic_acid_testing_result.result_ID) from nucleic_acid_testing_result where nucleic_acid_testing_result.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.level = 'critical'";
+            $sql = "select patient.patient_ID, patient.name, patient.treatment_area from patient join nucleic_acid_testing_result where patient.patient_ID = nucleic_acid_testing_result.patient_ID and nucleic_acid_testing_result.result_ID = (select max(nucleic_acid_testing_result.result_ID) from nucleic_acid_testing_result where nucleic_acid_testing_result.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.level = 'critical' ";
         }
         if($special == '4'){
             $sql = "select patient.patient_ID, patient.name, patient.treatment_area from patient join message join bed where message.patient_ID = patient.patient_ID and bed.patient_ID = patient.patient_ID ";
@@ -47,10 +47,10 @@ if($target == '0'){
             }
         }
         if($special == '6'){
-            $sql = "select patient.patient_ID, patient.name, patient.treatment_area from patient , patient_status, nucleic_acid_testing_result where patient_status.patient_ID = patient.patient_ID and patient_status.record_ID = (select max(patient_status.record_ID) from patient_status where patient_status.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.result_ID = patient_status.result_ID and nucleic_acid_testing_result.level != patient.treatment_area";
+            $sql = "select patient.patient_ID, patient.name, patient.treatment_area from patient , patient_status, nucleic_acid_testing_result where patient_status.patient_ID = patient.patient_ID and patient_status.record_ID = (select max(patient_status.record_ID) from patient_status where patient_status.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.result_ID = patient_status.result_ID and nucleic_acid_testing_result.level != patient.treatment_area ";
         }
         if($special == '7'){
-            $sql = "select patient.patient_ID, patient.name, patient.treatment_area from patient , patient_status, nucleic_acid_testing_result where patient_status.patient_ID = patient.patient_ID and patient_status.record_ID = (select max(patient_status.record_ID) from patient_status where patient_status.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.result_ID = patient_status.result_ID and nucleic_acid_testing_result.level = patient.treatment_area";
+            $sql = "select patient.patient_ID, patient.name, patient.treatment_area from patient , patient_status, nucleic_acid_testing_result where patient_status.patient_ID = patient.patient_ID and patient_status.record_ID = (select max(patient_status.record_ID) from patient_status where patient_status.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.result_ID = patient_status.result_ID and nucleic_acid_testing_result.level = patient.treatment_area ";
         }
         if($special == '8'){
             $sql = "select patient.patient_ID, patient.name, patient.treatment_area from patient , patient_status ,bed where patient.patient_ID = bed.patient_ID and patient_status.patient_ID = patient.patient_ID and patient_status.record_ID = (select max(patient_status.record_ID) from patient_status where patient_status.patient_ID = patient.patient_ID) and patient_status.life_status = 'discharged' ";
