@@ -53,7 +53,7 @@ if($target == '0'){
             $sql = "select distinct patient.patient_ID, patient.name, patient.treatment_area from patient , patient_status, nucleic_acid_testing_result where patient_status.patient_ID = patient.patient_ID and patient_status.record_ID = (select max(patient_status.record_ID) from patient_status where patient_status.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.result_ID = patient_status.result_ID and nucleic_acid_testing_result.level = patient.treatment_area ";
         }
         if($special == '8'){
-            $sql = "select distinct patient.patient_ID, patient.name, patient.treatment_area from patient , patient_status ,bed where patient.patient_ID = bed.patient_ID and patient_status.patient_ID = patient.patient_ID and patient_status.record_ID = (select max(patient_status.record_ID) from patient_status where patient_status.patient_ID = patient.patient_ID) and patient_status.life_status = 'discharged' ";
+            $sql = "select distinct patient.patient_ID, patient.name, patient.treatment_area from patient , patient_status ,bed where patient_status.patient_ID = patient.patient_ID and patient_status.record_ID = (select max(patient_status.record_ID) from patient_status where patient_status.patient_ID = patient.patient_ID) and patient_status.life_status = 'discharged' and patient_status.bed_ID = bed.bed_ID ";
             if($selector == '3'){
                 $sql .= "and bed.duty_nurse_ID = '$selector_value' ";
             }
@@ -65,7 +65,7 @@ if($target == '0'){
             }
         }
         if($special == '10'){
-            $sql = "select distinct patient.patient_ID, patient.name, patient.treatment_area from patient , patient_status ,bed where patient.patient_ID = bed.patient_ID and patient_status.patient_ID = patient.patient_ID and patient_status.record_ID = (select max(patient_status.record_ID) from patient_status where patient_status.patient_ID = patient.patient_ID) and patient_status.life_status = 'dead' ";
+            $sql = "select distinct patient.patient_ID, patient.name, patient.treatment_area from patient , patient_status ,bed where patient_status.patient_ID = patient.patient_ID and patient_status.record_ID = (select max(patient_status.record_ID) from patient_status where patient_status.patient_ID = patient.patient_ID) and patient_status.life_status = 'dead' and patient_status.bed_ID = bed.bed_ID  ";
             if($selector == '3'){
                 $sql .= "and bed.duty_nurse_ID = '$selector_value' ";
             }
