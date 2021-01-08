@@ -61,7 +61,7 @@
                alert('登陆失败');
              }else if (response.data.login=="1") {
                alert('登录成功');
-               this.$router.push({ name: 'Home', params: { id:this.loginForm.id ,name:response.data.name }});
+               this.$router.push({ name: 'Home', params: { id:this.loginForm.id ,name:response.data.name,type:response.data.type,area:response.data.area}});
              }
 
              }).catch((error) => {

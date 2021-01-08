@@ -33,30 +33,20 @@
       </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item class="select-item">
-          <el-radio-group v-model="dischargable">
-            <el-radio-button label="0">不启用此筛选项</el-radio-button>
+          <el-radio-group v-model="special">
+            <el-radio-button label="0">不启用筛选项</el-radio-button>
             <el-radio-button label="" disabled><i class="el-icon-caret-right"></i></el-radio-button>
-            <el-radio-button label="1">已可出院</el-radio-button>
-            <el-radio-button label="2">不可出院</el-radio-button>
-          </el-radio-group>
-        </el-dropdown-item>
+            <el-radio-button label="4">已可出院</el-radio-button>
+            <el-radio-button label="5">不可出院</el-radio-button>
 
-        <el-dropdown-item class="select-item">
-          <el-radio-group v-model="pending">
-            <el-radio-button label="0">不启用此筛选项</el-radio-button>
             <el-radio-button label="" disabled><i class="el-icon-caret-right"></i></el-radio-button>
-            <el-radio-button label="1">正待转入</el-radio-button>
-            <el-radio-button label="2">未待转入</el-radio-button>
-          </el-radio-group>
-        </el-dropdown-item>
+            <el-radio-button label="6">正待转入</el-radio-button>
+            <el-radio-button label="7">未待转入</el-radio-button>
 
-        <el-dropdown-item class="select-item">
-          <el-radio-group v-model="patient_status">
-            <el-radio-button label="0">不启用此筛选项</el-radio-button>
             <el-radio-button label="" disabled><i class="el-icon-caret-right"></i></el-radio-button>
-            <el-radio-button label="1">康复出院</el-radio-button>
-            <el-radio-button label="2">正在治疗</el-radio-button>
-            <el-radio-button label="3">&nbsp&nbsp&nbsp&nbsp病亡&nbsp&nbsp&nbsp&nbsp</el-radio-button>
+            <el-radio-button label="8">康复出院</el-radio-button>
+            <el-radio-button label="9">正在治疗</el-radio-button>
+            <el-radio-button label="10">&nbsp&nbsp&nbsp&nbsp病亡&nbsp&nbsp&nbsp&nbsp</el-radio-button>
           </el-radio-group>
         </el-dropdown-item>
       </el-dropdown-menu>
@@ -76,11 +66,10 @@
       <el-button style="margin:30px 0 0 10px;background:#00000008">查询本区所有病房护士</el-button>      
       <el-button style="margin:30px 0 0 10px;background:#00000008">查询本区护士长</el-button>
     </div>
-
-    <q-table :tableData='tableData' :type='target' v-if="target!='-1'"></q-table>
+    <q-table :tableData='tableData' :type='target' :auth='0' id='id' v-if="target!='-1'"></q-table>
 
    </el-col>
-
+  
   </div>
 </template>
 
@@ -109,22 +98,22 @@ export default {
       ]
     }
   },
+  props:{
+      id:String,
+      area_type:String,
+  },
   methods:{
       changeSearchTarget(target)
       {
         this.target=target;
       },
 
-      superSearch (target,type,area,level,dischargable,pending,patient_status,selector,selector_value) 
+      superSearch (target,area,special,selector,selector_value) 
       {
           this.$axios.post('/api/superSearch.php',{
              target:target,
-             type:type,
              area:area,
-             level:level,
-             dischargable:dischargable,
-             pending:pending,
-             patient_status:patient_status,
+             special:special,
              selector:selector,
              selector_value:selector_value
            }).then((response) => {
@@ -135,6 +124,9 @@ export default {
              console.log(error);
           });
       },
+    },
+    mounted(){
+      this.area=this.area_type;
     }
 }
 </script>

@@ -28,10 +28,66 @@
       label="操作"
       width="100">
        <template slot-scope="scope">
-        <el-button type="text" size="small">查看</el-button>
+        <el-button type="text" size="small" @click="dialogVisible = true;displayPatient(scope.row)">查看</el-button>
        </template>
       </el-table-column>
     </el-table>
+
+    <el-dialog
+      title="具体信息"
+      :visible.sync="dialogVisible"
+      width="85%">
+
+      <span style="margin-left:5%">id:{{detail.id}}&nbsp&nbsp&nbsp&nbspname:{{detail.name}}</span>
+      <br>
+      <div style="margin:20px 0 0 50px">
+      <el-button type="primary" size="small" >添加新核酸检测记录</el-button>
+      <el-button type="primary" size="small" >确认病人死亡</el-button>
+      <el-button type="primary" size="small" >允许病人出院</el-button>
+      </div>
+      <br>
+      <el-table
+      :data="detail.history"
+      style="width: 90%; margin:10px 5%">
+      <el-table-column
+        prop=""
+        label="记录时间">
+      </el-table-column>
+      <el-table-column
+        prop=""
+        label="记录者">
+      </el-table-column>
+      <el-table-column
+        prop=""
+        label="体温">
+      </el-table-column>
+      <el-table-column
+        prop=""
+        label="症状">
+      </el-table-column>
+      <el-table-column
+        prop=""
+        label="状态">
+      </el-table-column>      
+      <el-table-column
+        prop=""
+        label="核酸检测结果">
+      </el-table-column>
+      <el-table-column
+        prop=""
+        label="病情评级">
+      </el-table-column>
+      <el-table-column
+        prop=""
+        label="核酸检测者">
+      </el-table-column>
+      <el-table-column
+        prop=""
+        label="核酸检测时间">
+      </el-table-column>
+    </el-table>
+
+    </el-dialog>
   </div>
 
 </template>
@@ -42,16 +98,26 @@ export default {
   name: 'Table',
   data () {
     return {
-      
+      detail:{
+        id:'',
+        name:'',
+        history:[],
+      },
+      dialogVisible:false,
     }
   },
   props:{
+      auth:Number,
+      id:String,
       type:Number,
       tableData:Array,
   },
   methods:{
-    
-  }
+      displayPatient(row)
+      {
+        console.log(row);
+      }
+  },
 }
 </script>
 
