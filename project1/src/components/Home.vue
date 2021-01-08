@@ -58,6 +58,7 @@ export default {
     this.name=this.$route.params.name;
     this.type=this.$route.params.type;
     this.area=this.$route.params.area;
+    console.log(this.type);
   }
 }
 </script>
