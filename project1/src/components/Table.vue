@@ -44,6 +44,7 @@
       <div style="margin:20px 0 0 50px">
       <el-button type="success" size="small" @click="changeShow()">切换&nbsp状态/核酸检测单</el-button>
       <el-button type="primary" size="small" @click="show=2">添加新核酸检测记录</el-button>
+      <el-button type="primary" size="small" >&nbsp&nbsp&nbsp&nbsp信息登记&nbsp&nbsp&nbsp&nbsp</el-button>
       <el-button type="primary" size="small" >确认病人死亡</el-button>
       <el-button type="primary" size="small" >允许病人出院</el-button>
       </div>
@@ -148,6 +149,42 @@
       </el-form-item>
     </el-form>
 
+      <el-form :model="patientInfoForm"
+             label-position="left"
+             label-width="0px"
+             style="width:50%;margin-left:25%;margin-top:40px"
+             v-if="show==2">
+      <el-form-item >
+        <el-input type="text"
+                  prefix-icon="el-icon-lock"
+                  v-model="patientInfoForm.NACheck_result"
+                  auto-complete="off"
+                  placeholder="核酸检测结果"></el-input>
+      </el-form-item>
+      <el-form-item >
+        <el-date-picker
+            v-model="patientInfoForm.NACheck_time"
+            type="datetime"
+            placeholder="核酸检测时间">
+        </el-date-picker>
+      </el-form-item>
+
+      <el-form-item >
+        <el-input type="text"
+                  prefix-icon="el-icon-lock"
+                  v-model="patientInfoForm.level"
+                  auto-complete="off"
+                  placeholder="病情评级"></el-input>
+      </el-form-item>
+      
+      <el-form-item style="width: 100%">
+        <el-button type="primary"
+                   style="margin:10px auto 0px auto;width: 100%;background: #afb4db;line-height: 0.8"
+                   v-on:click="chcekNA"
+                   >提交</el-button>
+      </el-form-item>
+    </el-form>
+
     </el-dialog>
   </div>
 
@@ -184,7 +221,24 @@ export default {
       displayPatient(row)
       {
         console.log(row);
-        this.detail.id = row.id;
+        id = row.id;
+
+        if (this.type == 2) {
+           this.$axios.post('/api/superSearch.php',{
+             target:0,
+             area:0,
+             special:0,
+             selector:3,
+             selector_value:id
+           }).then((response) => {
+             console.log(response);
+             console.log(response.data);
+             id=response.data[0].id;
+             }).catch((error) => {
+             console.log(error);
+          });
+        }
+        this.detail.id = id;
         this.detail.name = row.name;
         this.$axios.post('/api/getPatientStatusHistory.php',{
 	          id:row.id,
