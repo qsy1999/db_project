@@ -20,6 +20,8 @@ insert into user (name, password, type)
 values ('hn3', '123123', 'hospital nurse');
 insert into user (name, password, type)
 values ('hn4', '123123', 'hospital nurse');
+insert into user (name, password, type)
+values ('en1', '123123','emergency nurse');
 insert into treatment_area
 values ('mild', 1, 4);
 insert into treatment_area

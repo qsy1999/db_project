@@ -24,8 +24,35 @@ if($result->num_rows == 0){
     echo json_encode($msg);
 }else{    
     $row = mysqli_fetch_assoc($result);
-    $msg = ['login'=>'1','name'=>$row['name'],'type'=>$row['type']];
-    echo json_encode($msg);
+    //'doctor', 'chief nurse', 'emergency nurse', 'hospital nurse'
+    switch ($row['type']){
+        case 'doctor':
+            $getWorkArea = "SELECT type FROM treatment_area WHERE `doctor_ID` = '$user_ID'";
+            $workArea = $conn->query($getWorkArea);
+            $msg = ['login'=>'1','name'=>$row['name'],'type'=>$row['type'],'area'=>$workArea['type']];
+            echo json_encode($msg);
+            break;
+        case 'chief nurse':
+            $getWorkArea = "SELECT type FROM treatment_area WHERE `chief_nurse_ID` = '$user_ID'";
+            $workArea = $conn->query($getWorkArea);
+            $msg = ['login'=>'1','name'=>$row['name'],'type'=>$row['type'],'area'=>$workArea['type']];
+            echo json_encode($msg);
+            break;
+        case 'hospital nurse':
+            $getWorkArea = "SELECT treatment_area FROM bed WHERE `duty_nurse_ID` = '$user_ID'";
+            $workArea = $conn->query($getWorkArea);
+            $msg = ['login'=>'1','name'=>$row['name'],'type'=>$row['type'],'area'=>$workArea['treatment_area']];
+            echo json_encode($msg);
+            break;
+        case 'emergency nurse':
+            $msg = ['login'=>'1','name'=>$row['name'],'type'=>$row['type'],'area'=>'0'];
+            echo json_encode($msg);
+            break;
+
+
+    }
+    
+    
     
 }
 
