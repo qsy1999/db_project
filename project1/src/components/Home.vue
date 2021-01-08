@@ -4,7 +4,7 @@
 
   <div style="min-height:500px">
     <q-search v-if="content=='0'" :id='id' :auth='type' :area='area'></q-search>
-    <q-add v-if="content=='1'||content=='2'"></q-add>
+    <q-add v-if="content=='1'||content=='2'" :id='id'></q-add>
     <q-info-change :id='id' v-if="content=='3'"></q-info-change>
   </div>
 
@@ -49,14 +49,15 @@ export default {
     {
       this.content=e;
       console.log(this.type);
+      console.log(this.area);
     }
   },
 
   mounted(){
     this.id=this.$route.params.id;
     this.name=this.$route.params.name;
-    // this.type=this.$route.params.type;
-    // this.area=this.$route.params.area;
+    this.type=this.$route.params.type;
+    this.area=this.$route.params.area;
   }
 }
 </script>

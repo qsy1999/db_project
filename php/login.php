@@ -29,18 +29,22 @@ if($result->num_rows == 0){
         case 'doctor':
             $getWorkArea = "SELECT type FROM treatment_area WHERE `doctor_ID` = '$user_ID'";
             $workArea = $conn->query($getWorkArea);
+            $workArea = mysqli_fetch_assoc($workArea);
+
             $msg = ['login'=>'1','name'=>$row['name'],'type'=>$row['type'],'area'=>$workArea['type']];
             echo json_encode($msg);
             break;
         case 'chief nurse':
             $getWorkArea = "SELECT type FROM treatment_area WHERE `chief_nurse_ID` = '$user_ID'";
             $workArea = $conn->query($getWorkArea);
+            $workArea = mysqli_fetch_assoc($workArea);
             $msg = ['login'=>'1','name'=>$row['name'],'type'=>$row['type'],'area'=>$workArea['type']];
             echo json_encode($msg);
             break;
         case 'hospital nurse':
             $getWorkArea = "SELECT treatment_area FROM bed WHERE `duty_nurse_ID` = '$user_ID'";
             $workArea = $conn->query($getWorkArea);
+            $workArea = mysqli_fetch_assoc($workArea);
             $msg = ['login'=>'1','name'=>$row['name'],'type'=>$row['type'],'area'=>$workArea['treatment_area']];
             echo json_encode($msg);
             break;

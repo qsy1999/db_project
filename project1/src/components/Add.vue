@@ -63,14 +63,14 @@
                   auto-complete="off"
                   placeholder="病人名字"></el-input>
       </el-form-item>
-      <el-form-item prop="password">
-        <el-input type="password"
+      <el-form-item >
+        <el-input type="text"
                   prefix-icon="el-icon-lock"
                   v-model="patientInfoForm.NACheck_result"
                   auto-complete="off"
                   placeholder="核酸检测结果"></el-input>
       </el-form-item>
-      <el-form-item prop="password">
+      <el-form-item >
         <el-date-picker
             v-model="patientInfoForm.NACheck_time"
             type="datetime"
@@ -78,8 +78,8 @@
         </el-date-picker>
       </el-form-item>
 
-      <el-form-item prop="password">
-        <el-input type="password"
+      <el-form-item >
+        <el-input type="text"
                   prefix-icon="el-icon-lock"
                   v-model="patientInfoForm.level"
                   auto-complete="off"
@@ -126,8 +126,7 @@
           alert("提交失败，两次密码不一致，或是无效的密码或姓名");
         }else{
           this.$axios.post('/api/changeInfo.php',{
-          	newName:this.newInfoForm.name,
-          	newPassword:this.newInfoForm.password
+              
            }).then((response) => {
              console.log(response);
              console.log(response.data);
@@ -142,6 +141,27 @@
           });
         }
       },
+      addPatient () {
+          console.log(this.id);
+          this.$axios.post('/api/receivePatient.php',{
+          	  id:this.id,
+          	  name:this.patientInfoForm.name,
+          	  NACheck_result:this.patientInfoForm.NACheck_result,
+              NACheck_time:this.patientInfoForm.NACheck_time,
+          	  level:this.patientInfoForm.level,
+           }).then((response) => {
+             console.log(response);
+             console.log(response.data);
+             if (response.data.success=="0") {
+               alert('创建失败');
+             }else if (response.data.success=="1") {
+               alert('创建成功');
+             }
+
+             }).catch((error) => {
+             console.log(error);
+          });
+      }
     },
     mounted(){
         this.mode=this.type;
