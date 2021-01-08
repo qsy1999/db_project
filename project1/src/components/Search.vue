@@ -40,6 +40,7 @@ export default {
     },
   mounted(){
     this.user_type=this.auth;
+    console.log(this.auth);
   }
 }
 </script>
