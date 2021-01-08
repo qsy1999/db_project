@@ -29,6 +29,7 @@
       width="100">
        <template slot-scope="scope">
         <el-button type="text" size="small" @click="dialogVisible = true;displayPatient(scope.row)">查看</el-button>
+        <el-button type="text" size="small" >开除</el-button>
        </template>
       </el-table-column>
     </el-table>
@@ -116,7 +117,24 @@ export default {
       displayPatient(row)
       {
         console.log(row);
-      }
+      },
+      dismiss(row)
+      {
+        this.$axios.post('/api/changeInfo.php',{
+	          id:row.id,
+           }).then((response) => {
+             console.log(response);
+             console.log(response.data);
+             if (response.data.success=="0") {
+               alert('失败');
+             }else if (response.data.success=="1") {
+               alert('成功');
+             }
+
+             }).catch((error) => {
+             console.log(error);
+          });
+      },
   },
 }
 </script>
