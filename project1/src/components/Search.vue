@@ -4,7 +4,7 @@
    <q-search-doctor v-if="user_type=='0'"></q-search-doctor>
    <q-search-chief-nurse v-if="user_type=='1'"></q-search-chief-nurse>
    <q-search-emergency-nurse v-if="user_type=='2'"></q-search-emergency-nurse>
-   <q-search-hospital-nurse></q-search-hospital-nurse>
+   <q-search-hospital-nurse v-if="user_type=='3'"></q-search-hospital-nurse>
  </div>
 
 </template>
@@ -27,7 +27,7 @@ export default {
   },
   data () {
     return {
-      user_type:'-1',
+      user_type:'0',
     }
   },
   methods:{

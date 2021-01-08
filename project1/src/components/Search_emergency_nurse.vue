@@ -3,6 +3,7 @@
 
     <el-input v-model="selector_value" placeholder="若不需查询具体名字或ID，点击查询所有" class="detail_input">
       <el-select v-model="selector" slot="prepend" placeholder="请选择" class="selector">
+        <el-option label="请选择" value="0"></el-option>
         <el-option label="病人姓名" value="1"></el-option>
         <el-option label="病人ID" value="2"></el-option>
         <el-option label="病房护士ID" value="3"></el-option>

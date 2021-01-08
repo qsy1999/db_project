@@ -2,11 +2,11 @@
   <div>
    <el-col :span="4" >
     <el-menu style="border-radius:15px 0 0 15px;background:#ffffff;border-right:none">
-      <el-menu-item index="1" style="border-radius:15px 0 0 0" @click.native="changeSearchTarget(0);">
+      <el-menu-item index="1" style="border-radius:15px 0 0 0" @click.native="changeSearchTarget(1);">
         <i class="el-icon-first-aid-kit"></i>
         <span slot="title">查询医护人员</span>
       </el-menu-item>
-      <el-menu-item index="2" style="border-radius:0 0 0 15px" @click.native="changeSearchTarget(1);">
+      <el-menu-item index="2" style="border-radius:0 0 0 15px" @click.native="changeSearchTarget(0);">
         <i class="el-icon-user"></i>
         <span slot="title">查询病人</span>
       </el-menu-item>
@@ -17,6 +17,7 @@
     <div v-if="target=='0'">
     <el-input v-model="selector_value" placeholder="若不需查询具体名字或ID，点击查询所有" class="detail_input">
       <el-select v-model="selector" slot="prepend" placeholder="请选择" class="selector">
+        <el-option label="请选择" value="0"></el-option>
         <el-option label="病人姓名" value="1"></el-option>
         <el-option label="病人ID" value="2"></el-option>
         <el-option label="病房护士ID" value="3"></el-option>
@@ -65,6 +66,7 @@
     <div v-if="target=='1'">
       <el-input v-model="selector_value" placeholder="根据名字或ID查询病房护士" class="detail_input">
        <el-select v-model="selector" slot="prepend" placeholder="请选择" class="selector">
+        <el-option label="请选择" value="0"></el-option>
         <el-option label="姓名" value="1"></el-option>
         <el-option label="ID" value="2"></el-option>
        </el-select>
@@ -94,11 +96,8 @@ export default {
   data () {
     return {
       area:'0',
-      level:'0',
       target:'-1',
-      dischargable:'0',
-      pending:'0',
-      patient_status:'0',
+      special:'0',
       selector:'0',
       selector_value:'',
       tableData:[
