@@ -32,7 +32,7 @@ select id, name, area from patient nature join bed where bed.treatment_area = in
 target 0 area 0 special 3;
 select id, name, area from patient nature join bed where bed.treatment_area = critical
 target 0 area 0 special 4;
-select id, name, area from patient nature join bed where bed.treatment_area = mild and 
+select id, name, area from patient nature join bed where bed.treatment_area = mild and select
 target 0 area 0 special 5;
 target 0 area 0 special 6;
 target 0 area 0 special 7;

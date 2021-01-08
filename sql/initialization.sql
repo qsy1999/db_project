@@ -45,4 +45,37 @@ values (104, 'mild', 10);
 insert into bed (room, treatment_area)
 values (104, 'mild');
 
+insert into patient(name)
+values ('a');
+insert into patient(name) 
+values ('b');
+update bed 
+set patient_ID = (select patient_ID from patient where name = 'a') where room = 104;
+update bed 
+set patient_ID = (select patient_ID from patient where name = 'b') where room = 104;
+
+insert into nucleic_acid_testing_result(patient_ID,recorder_ID,result,time,level) 
+values(1,1,'positive','2019-03-03 01:53','mild');   
+insert into nucleic_acid_testing_result(patient_ID,recorder_ID,result,time,level)
+values(2,1,'positive','2019-03-03 01:53','mild');  
+insert into nucleic_acid_testing_result(patient_ID,recorder_ID,result,time,level)
+values(1,1,'negative','2019-03-05 01:53','mild'); 
+insert into nucleic_acid_testing_result(patient_ID,recorder_ID,result,time,level)
+values(2,1,'positive','2019-03-05 01:53','mild'); 
+insert into nucleic_acid_testing_result(patient_ID,recorder_ID,result,time,level)
+values(1,1,'negative','2019-03-06 01:53','mild');  
+insert into nucleic_acid_testing_result(patient_ID,recorder_ID,result,time,level)
+values(2,1,'negative','2019-03-06 01:53','mild');
+
+
+insert into patient_status(result_ID,patient_ID,recorder_ID,temperature,symptom,life_status,time) 
+values(3,1,4,36.8,'','treating','2019-03-05 01:53');
+insert into patient_status(result_ID,patient_ID,recorder_ID,temperature,symptom,life_status,time)  
+values(5,1,4,36.8,'','treating','2019-03-06 01:53');
+
+insert into patient_status(result_ID,patient_ID,recorder_ID,temperature,symptom,life_status,time) 
+values(4,1,4,36.8,'','treating','2019-03-05 01:53');
+insert into patient_status(result_ID,patient_ID,recorder_ID,temperature,symptom,life_status,time) 
+values(6,1,4,36.8,'','treating','2019-03-06 01:53');
+
 
