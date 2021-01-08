@@ -34,11 +34,8 @@ export default {
   data () {
     return {
       area:'0',
-      level:'0',
-      target:'0',
-      dischargable:'0',
-      pending:'0',
-      patient_status:'0',
+      target:'-1',
+      special:'0',
       selector:'0',
       selector_value:'',
       tableData:[

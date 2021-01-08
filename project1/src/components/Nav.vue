@@ -2,8 +2,11 @@
 
  <el-menu mode="horizontal" style="padding:0 50px" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
   <el-menu-item index="1" >查询</el-menu-item>
-  
-  <el-menu-item index="2" style="float:right">
+  <el-menu-item index="2" >添加病房护士</el-menu-item>
+  <el-menu-item index="3" >添加病人</el-menu-item>
+
+
+  <el-menu-item index="4" style="float:right">
    <el-dropdown>
     <span class="el-dropdown-link" style="color:white">
       个人中心 &nbsp; <i class="el-icon-more"></i>
@@ -27,15 +30,19 @@ export default {
   name: 'Nav',
   data () {
     return {
-
+      type:'',
     }
   },
   props:{
       name:String,
+      auth:String,
   },
   methods:{
     
   },
+  mounted(){
+    this.type=this.auth;
+  }
 }
 </script>
 

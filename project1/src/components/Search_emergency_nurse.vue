@@ -18,34 +18,28 @@
         设置筛选项<i class="el-icon-arrow-down el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item class="select-item">
-          <el-radio-group v-model="dischargable">
-            <el-radio-button label="0">不启用此筛选项</el-radio-button>
+       <el-dropdown-item class="select-item">
+          <el-radio-group v-model="special">
+            <el-radio-button label="0" >不启用此筛选项</el-radio-button>
             <el-radio-button label="" disabled><i class="el-icon-caret-right"></i></el-radio-button>
-            <el-radio-button label="1">已可出院</el-radio-button>
-            <el-radio-button label="2">不可出院</el-radio-button>
+            <el-radio-button label="1">轻症</el-radio-button>
+            <el-radio-button label="2">重症</el-radio-button>
+            <el-radio-button label="3">危重症</el-radio-button>
+
+            <el-radio-button label="" disabled><i class="el-icon-caret-right"></i></el-radio-button>
+            <el-radio-button label="4">已可出院</el-radio-button>
+            <el-radio-button label="5">不可出院</el-radio-button>
+
+            <el-radio-button label="" disabled><i class="el-icon-caret-right"></i></el-radio-button>
+            <el-radio-button label="6">正待转入</el-radio-button>
+            <el-radio-button label="7">未待转入</el-radio-button>
+<br>
+            <el-radio-button label="" disabled style="margin-left:140px"><i class="el-icon-caret-right"></i></el-radio-button>
+            <el-radio-button label="8">康复出院</el-radio-button>
+            <el-radio-button label="9">正在治疗</el-radio-button>
+            <el-radio-button label="10">病亡</el-radio-button>
           </el-radio-group>
         </el-dropdown-item>
-
-        <el-dropdown-item class="select-item">
-          <el-radio-group v-model="pending">
-            <el-radio-button label="0">不启用此筛选项</el-radio-button>
-            <el-radio-button label="" disabled><i class="el-icon-caret-right"></i></el-radio-button>
-            <el-radio-button label="1">正待转入</el-radio-button>
-            <el-radio-button label="2">未待转入</el-radio-button>
-          </el-radio-group>
-        </el-dropdown-item>
-
-        <el-dropdown-item class="select-item">
-          <el-radio-group v-model="patient_status">
-            <el-radio-button label="0">不启用此筛选项</el-radio-button>
-            <el-radio-button label="" disabled><i class="el-icon-caret-right"></i></el-radio-button>
-            <el-radio-button label="1">康复出院</el-radio-button>
-            <el-radio-button label="2">正在治疗</el-radio-button>
-            <el-radio-button label="3">&nbsp&nbsp&nbsp&nbsp病亡&nbsp&nbsp&nbsp&nbsp</el-radio-button>
-          </el-radio-group>
-        </el-dropdown-item>
-
         <el-dropdown-item class="select-item">
           <el-radio-group v-model="area">
             <el-radio-button label="0">不启用此筛选项</el-radio-button>
@@ -58,15 +52,7 @@
           </el-radio-group>
         </el-dropdown-item>
 
-        <el-dropdown-item class="select-item">
-          <el-radio-group v-model="level">
-            <el-radio-button label="0" >不启用此筛选项</el-radio-button>
-            <el-radio-button label="" disabled><i class="el-icon-caret-right"></i></el-radio-button>
-            <el-radio-button label="1">&nbsp&nbsp轻症&nbsp&nbsp</el-radio-button>
-            <el-radio-button label="2">&nbsp&nbsp重症&nbsp&nbsp</el-radio-button>
-            <el-radio-button label="3">危重症</el-radio-button>
-          </el-radio-group>
-        </el-dropdown-item>
+        
       </el-dropdown-menu>
     </el-dropdown>
 
@@ -90,11 +76,8 @@ export default {
   data () {
     return {
       area:'0',
-      level:'0',
-      target:'0',
-      dischargable:'0',
-      pending:'0',
-      patient_status:'0',
+      target:'-1',
+      special:'0',
       selector:'0',
       selector_value:'',
       tableData:[
