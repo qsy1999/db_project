@@ -131,7 +131,7 @@ export default {
            }).then((response) => {
              console.log(response);
              console.log(response.data);
-
+             this.tableData=response.data;
              }).catch((error) => {
              console.log(error);
           });

@@ -37,6 +37,7 @@
       <el-form-item style="width: 100%">
         <el-button type="primary"
                    style="margin:10px auto 0px auto;width: 100%;background: #afb4db;line-height: 0.8"
+                   v-on:click="changeInfo"
                    >提交</el-button>
       </el-form-item>
     </el-form>
@@ -45,7 +46,7 @@
 
 <script>
   export default {
-    name: 'Register',
+    name: 'ChangeInfo',
     data () {
       return {
         newInfoForm: {
@@ -55,10 +56,33 @@
         password_2:'',
       }
     },
-
+    props:{
+      id:String,
+    },
 
     methods: {
-      
+      changeInfo () {
+        if(this.newInfoForm.password==''||this.newInfoForm.name==''||this.newInfoForm.password!=this.password_2){
+          alert("提交失败，两次密码不一致，或是无效的密码或姓名");
+        }else{
+          this.$axios.post('/api/changeInfo.php',{
+	          user_ID:this.id,
+          	newName:this.newInfoForm.name,
+          	newPassword:this.newInfoForm.password
+           }).then((response) => {
+             console.log(response);
+             console.log(response.data);
+             if (response.data.success=="0") {
+               alert('修改信息失败');
+             }else if (response.data.success=="1") {
+               alert('修改信息成功');
+             }
+
+             }).catch((error) => {
+             console.log(error);
+          });
+        }
+      },
     }
   }
 </script>

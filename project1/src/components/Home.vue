@@ -3,8 +3,8 @@
   <q-nav :name='name'></q-nav>
 
   <div style="min-height:500px">
-    <q-search></q-search>
-    <q-info-change v-if="content=='2'"></q-info-change>
+    <q-search v-if="content=='2'"></q-search>
+    <q-info-change :id='id'></q-info-change>
   </div>
 
   <q-footer></q-footer>
