@@ -24,15 +24,15 @@ $from = 'from';
 $where = 'where';
 
 target 0 area 0 special 0;
-select id, name, area from patient nature join bed
+select patient_ID, name, area from patient natural join bed
 target 0 area 0 special 1;
-select id, name, area from patient nature join bed where bed.treatment_area = mild
+select patient_ID, name, area from patient natural join bed where bed.treatment_area = mild
 target 0 area 0 special 2;
-select id, name, area from patient nature join bed where bed.treatment_area = intense
+select patient_ID, name, area from patient natural join bed where bed.treatment_area = intense
 target 0 area 0 special 3;
-select id, name, area from patient nature join bed where bed.treatment_area = critical
+select patient_ID, name, area from patient natural join bed where bed.treatment_area = critical
 target 0 area 0 special 4;
-select id, name, area from patient nature join bed where bed.treatment_area = mild and select
+select patient_ID, name, area from patient natural join bed where bed.treatment_area = mild and select
 target 0 area 0 special 5;
 target 0 area 0 special 6;
 target 0 area 0 special 7;

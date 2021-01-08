@@ -50,9 +50,9 @@ values ('a');
 insert into patient(name) 
 values ('b');
 update bed 
-set patient_ID = (select patient_ID from patient where name = 'a') where room = 104;
+set patient_ID = (select patient_ID from patient where name = 'a') where bed_ID = 5;
 update bed 
-set patient_ID = (select patient_ID from patient where name = 'b') where room = 104;
+set patient_ID = (select patient_ID from patient where name = 'b') where bed_ID = 6;
 
 insert into nucleic_acid_testing_result(patient_ID,recorder_ID,result,time,level) 
 values(1,1,'positive','2019-03-03 01:53','mild');   
