@@ -24,7 +24,7 @@ if($result->num_rows == 0){
     echo json_encode($msg);
 }else{    
     $row = mysqli_fetch_assoc($result);
-    $msg = ['login'=>'1','name'=>$row['name']];
+    $msg = ['login'=>'1','name'=>$row['name'],'type'=>$row['type']];
     echo json_encode($msg);
     
 }
