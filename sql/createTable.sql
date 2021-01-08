@@ -78,10 +78,10 @@
   create table message(
     message_ID int,
     patient_ID int,
-    to int
+    towards int,
     primary key(message_ID),
     foreign key(patient_ID) references patient (patient_ID),
-    foreign key(to) references user (user_ID)
+    foreign key(towards) references user (user_ID)
   )
   -- create table patient_bed(
   --   bed_ID int,
