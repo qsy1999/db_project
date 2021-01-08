@@ -26,8 +26,15 @@ if(!$result2||!$result1){
     $msg=['success'=>'0'];
     echo json_encode($msg);
 }else {
-    $row = mysqli_fetch_assoc($result);
-    $sql = "insert into patient_status(result_ID,patient_ID,bed_ID,recorder_ID,temperature,symptom,life_status,time) values(`$row['result_ID']`,`$row['patient_ID']`,`$row['bed_ID']`,$doctor_id,`$row['temperature']`,'`$row['symptom']`','$type',`$row['time']`);" ;
+    $row = mysqli_fetch_assoc($result2);
+    $v1=$row['result_ID'];
+    $v2=$row['patient_ID'];
+    $v3=$row['bed_ID'];
+    if($v3=='')$v3="NULL";
+    $v4=$row['temperature'];
+    $v5=$row['symptom'];
+    $v6=$row['time'];
+    $sql = "insert into patient_status (result_ID,patient_ID,bed_ID,recorder_ID,temperature,symptom,life_status,time) values($v1,$v2,$v3,$doctor_id,'$v4','$v5','$type','$v6');" ;
     $result3 = $conn->query($sql);
     if(!$result3){
         $msg=['success'=>'0'];
