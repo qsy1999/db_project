@@ -208,6 +208,7 @@ export default {
       detail:{
         id:'',
         name:'',
+        area:'',
         history:[],
         result:[],
       },
@@ -234,6 +235,7 @@ export default {
   methods:{
       displayPatient(row)
       {
+        this.detail.area=row.area;
         console.log(row);
         var id = row.id;
 
@@ -328,6 +330,7 @@ export default {
                alert('失败');
              }else if (response.data.success=="1") {
                alert('成功');
+               this.autoFill(this.detail.area);
              }
 
              }).catch((error) => {
@@ -352,6 +355,24 @@ export default {
                alert('成功');
              }
 
+             }).catch((error) => {
+             console.log(error);
+          });
+      },
+
+      autoFill(to)
+      {
+          console.log(to);
+         this.$axios.post('/api/autoFill.php',{
+            to:to,
+           }).then((response) => {
+             console.log(response);
+             console.log(response.data);
+             if (response.data.stop==1) {
+               return
+             }else if (response.data.stop==0){
+               autoFill(response.data.newTo);
+             }
              }).catch((error) => {
              console.log(error);
           });

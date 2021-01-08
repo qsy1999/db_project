@@ -51,10 +51,32 @@ insert into patient(name,treatment_area)
 values ('a','mild');
 insert into patient(name,treatment_area) 
 values ('b','mild');
+insert into patient(name,treatment_area)
+values ('c','mild');
+insert into patient(name,treatment_area) 
+values ('d','intense');
+insert into patient(name,treatment_area)
+values ('e','intense');
+insert into patient(name,treatment_area) 
+values ('f','critical');
+insert into patient(name,treatment_area)
+values ('g','critical');
+
 update bed 
 set patient_ID = (select patient_ID from patient where name = 'a') where bed_ID = 5;
 update bed 
 set patient_ID = (select patient_ID from patient where name = 'b') where bed_ID = 6;
+update bed 
+set patient_ID = (select patient_ID from patient where name = 'c') where bed_ID = 7;
+update bed 
+set patient_ID = (select patient_ID from patient where name = 'd') where bed_ID = 3;
+update bed 
+set patient_ID = (select patient_ID from patient where name = 'e') where bed_ID = 4;
+update bed 
+set patient_ID = (select patient_ID from patient where name = 'f') where bed_ID = 1;
+update bed 
+set patient_ID = (select patient_ID from patient where name = 'a') where bed_ID = 2;
+
 
 insert into nucleic_acid_testing_result(patient_ID,recorder_ID,result,time,level) 
 values(1,1,'positive','2019-03-03 01:53','mild');   

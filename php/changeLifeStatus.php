@@ -41,6 +41,8 @@ if(!$result2||!$result1){
         echo json_encode($sql);
     }
     else {
+        
+        
         $msg=['success'=>'1'];
         echo json_encode($msg);
     }
