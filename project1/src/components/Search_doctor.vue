@@ -66,7 +66,7 @@
       <el-button style="margin:30px 0 0 10px;background:#00000008">查询本区所有病房护士</el-button>      
       <el-button style="margin:30px 0 0 10px;background:#00000008">查询本区护士长</el-button>
     </div>
-    <q-table :tableData='tableData' :type='target' :auth='0' id='id' v-if="target!='-1'"></q-table>
+    <q-table :tableData='tableData' :type='target' :auth='0' :id='id' v-if="target!='-1'"></q-table>
 
    </el-col>
 
@@ -139,6 +139,7 @@ export default {
       if(this.area_type=="mild")this.area=2;
       if(this.area_type=="intense")this.area=3;
       if(this.area_type=="critical")this.area=4;
+      
     }
 }
 </script>

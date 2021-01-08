@@ -39,54 +39,114 @@
       :visible.sync="dialogVisible"
       width="85%">
 
-      <span style="margin-left:5%">id:{{detail.id}}&nbsp&nbsp&nbsp&nbspname:{{detail.name}}</span>
+      <span style="margin-left:5%">id:&nbsp{{detail.id}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname:&nbsp{{detail.name}}</span>
       <br>
       <div style="margin:20px 0 0 50px">
-      <el-button type="primary" size="small" >添加新核酸检测记录</el-button>
+      <el-button type="success" size="small" @click="changeShow()">切换&nbsp状态/核酸检测单</el-button>
+      <el-button type="primary" size="small" @click="show=2">添加新核酸检测记录</el-button>
       <el-button type="primary" size="small" >确认病人死亡</el-button>
       <el-button type="primary" size="small" >允许病人出院</el-button>
       </div>
       <br>
       <el-table
       :data="detail.history"
-      style="width: 90%; margin:10px 5%">
+      style="width: 90%; margin:10px 5%"
+      v-if="show == 0">
       <el-table-column
-        prop=""
+        prop="time"
         label="记录时间">
       </el-table-column>
       <el-table-column
-        prop=""
+        prop="recorder"
         label="记录者">
       </el-table-column>
       <el-table-column
-        prop=""
+        prop="temperature"
         label="体温">
       </el-table-column>
       <el-table-column
-        prop=""
+        prop="symptom"
         label="症状">
       </el-table-column>
       <el-table-column
-        prop=""
+        prop="life_status"
         label="状态">
       </el-table-column>      
       <el-table-column
-        prop=""
+        prop="result"
         label="核酸检测结果">
       </el-table-column>
       <el-table-column
-        prop=""
+        prop="level"
         label="病情评级">
       </el-table-column>
       <el-table-column
-        prop=""
+        prop="NA_recorder"
         label="核酸检测者">
       </el-table-column>
       <el-table-column
-        prop=""
+        prop="NA_time"
         label="核酸检测时间">
       </el-table-column>
     </el-table>
+
+    <el-table
+      :data="detail.result"
+      style="width: 90%; margin:10px 5%"
+      v-if="show == 1">
+      <el-table-column
+        prop="result"
+        label="核酸检测结果">
+      </el-table-column>
+      <el-table-column
+        prop="level"
+        label="病情评级">
+      </el-table-column>
+      <el-table-column
+        prop="NA_recorder"
+        label="核酸检测者">
+      </el-table-column>
+      <el-table-column
+        prop="NA_time"
+        label="核酸检测时间">
+      </el-table-column>
+    </el-table>
+
+      <el-form :model="patientInfoForm"
+             label-position="left"
+             label-width="0px"
+             style="width:50%;margin-left:25%;margin-top:40px"
+             v-if="show==2">
+      <el-form-item >
+        <el-input type="text"
+                  prefix-icon="el-icon-lock"
+                  v-model="patientInfoForm.NACheck_result"
+                  auto-complete="off"
+                  placeholder="核酸检测结果"></el-input>
+      </el-form-item>
+      <el-form-item >
+        <el-date-picker
+            v-model="patientInfoForm.NACheck_time"
+            type="datetime"
+            placeholder="核酸检测时间">
+        </el-date-picker>
+      </el-form-item>
+
+      <el-form-item >
+        <el-input type="text"
+                  prefix-icon="el-icon-lock"
+                  v-model="patientInfoForm.level"
+                  auto-complete="off"
+                  placeholder="病情评级"></el-input>
+      </el-form-item>
+      
+      <el-form-item style="width: 100%">
+        <el-button type="primary"
+                   style="margin:10px auto 0px auto;width: 100%;background: #afb4db;line-height: 0.8"
+                   v-on:click="chcekNA"
+                   >提交</el-button>
+      </el-form-item>
+    </el-form>
 
     </el-dialog>
   </div>
@@ -99,12 +159,19 @@ export default {
   name: 'Table',
   data () {
     return {
+      show:0,
       detail:{
         id:'',
         name:'',
         history:[],
+        result:[],
       },
       dialogVisible:false,
+      patientInfoForm:{
+            NACheck_result: '',
+            NACheck_time: '',
+            level:'',
+        },
     }
   },
   props:{
@@ -117,10 +184,23 @@ export default {
       displayPatient(row)
       {
         console.log(row);
+        this.detail.id = row.id;
+        this.detail.name = row.name;
+        this.$axios.post('/api/getPatientStatusHistory.php',{
+	          id:row.id,
+           }).then((response) => {
+             console.log(response);
+             console.log(response.data);
+             this.detail.history = response.data[0];
+             this.detail.result = response.data[1];
+
+             }).catch((error) => {
+             console.log(error);
+          });
       },
       dismiss(row)
       {
-        this.$axios.post('/api/changeInfo.php',{
+        this.$axios.post('/api/dismiss.php',{
 	          id:row.id,
            }).then((response) => {
              console.log(response);
@@ -135,6 +215,33 @@ export default {
              console.log(error);
           });
       },
+      chcekNA()
+      {
+          console.log(this.id);
+          this.$axios.post('/api/checkNA.php',{
+	          id:this.id,
+            targetID:this.detail.id,
+            result:this.patientInfoForm.NACheck_result,
+          	time:this.patientInfoForm.NACheck_time,
+	          level:this.patientInfoForm.level,
+           }).then((response) => {
+             console.log(response);
+             console.log(response.data);
+             if (response.data.success=="0") {
+               alert('失败');
+             }else if (response.data.success=="1") {
+               alert('成功');
+             }
+
+             }).catch((error) => {
+             console.log(error);
+          });
+      },
+      changeShow()
+      {
+        if(this.show==0)this.show=1;
+        else this.show=0;
+      }
   },
 }
 </script>
