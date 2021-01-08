@@ -55,14 +55,10 @@ else {
     $row = mysqli_fetch_assoc($result);
     $result_ID=$row['lastID'];
 
-    $sql =   "INSERT INTO patient_status ".
-             "(patient_ID,result_ID,bed_ID,recorder_ID,temperature,symptom,life_status,time) ".
-             "VALUES ".
-             "($patient_ID,$result_ID,NULL,$id,'$temperature','$symptom','treating','$time')";
-    $result = $conn->query($sql);
-
     $sql = "SELECT bed_ID FROM bed WHERE patient_ID IS NULL and duty_nurse_ID IS NOT NULL and treatment_area = '$level'";
     $result = $conn->query($sql);
+
+    $bed_ID="null";
 
     if($result->num_rows != 0){
         $row = mysqli_fetch_assoc($result);
@@ -76,6 +72,12 @@ else {
         $sql = "UPDATE patient set `treatment_area` = 'isolated area' WHERE `patient_ID` = '$patient_ID'";
         $result = $conn->query($sql);
     }
+
+    $sql =   "INSERT INTO patient_status ".
+             "(patient_ID,result_ID,bed_ID,recorder_ID,temperature,symptom,life_status,time) ".
+             "VALUES ".
+             "($patient_ID,$result_ID,$bed_ID,$id,'$temperature','$symptom','treating','$time')";
+    $result = $conn->query($sql);
 
     if(!$result){ 
         $msg=['success'=>'0'];
