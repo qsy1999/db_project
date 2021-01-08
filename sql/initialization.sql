@@ -70,14 +70,14 @@ insert into nucleic_acid_testing_result(patient_ID,recorder_ID,result,time,level
 values(2,1,'negative','2019-03-06 01:53','mild');
 
 
-insert into patient_status(result_ID,patient_ID,recorder_ID,temperature,symptom,life_status,time) 
-values(3,1,4,36.8,'','treating','2019-03-05 01:53');
-insert into patient_status(result_ID,patient_ID,recorder_ID,temperature,symptom,life_status,time)  
-values(5,1,4,36.8,'','treating','2019-03-06 01:53');
+insert into patient_status(result_ID,patient_ID,bed_ID,recorder_ID,temperature,symptom,life_status,time) 
+values(3,1,5,4,36.8,'','treating','2019-03-05 01:53');
+insert into patient_status(result_ID,patient_ID,bed_ID,recorder_ID,temperature,symptom,life_status,time)  
+values(5,1,5,4,36.8,'','treating','2019-03-06 01:53');
 
-insert into patient_status(result_ID,patient_ID,recorder_ID,temperature,symptom,life_status,time) 
-values(4,2,4,36.8,'','treating','2019-03-05 01:53');
-insert into patient_status(result_ID,patient_ID,recorder_ID,temperature,symptom,life_status,time) 
-values(6,2,4,36.8,'','treating','2019-03-06 01:53');
+insert into patient_status(result_ID,patient_ID,bed_ID,recorder_ID,temperature,symptom,life_status,time) 
+values(4,2,6,4,36.8,'','treating','2019-03-05 01:53');
+insert into patient_status(result_ID,patient_ID,bed_ID,recorder_ID,temperature,symptom,life_status,time) 
+values(6,2,6,4,36.8,'','treating','2019-03-06 01:53');
 
 

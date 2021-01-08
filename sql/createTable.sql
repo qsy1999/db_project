@@ -35,6 +35,7 @@
     record_ID   int AUTO_INCREMENT,
     result_ID   int,
     patient_ID  int,
+    bed_ID      int,
     recorder_ID int,
     temperature numeric(3, 1),
     symptom     varchar(20),
@@ -42,6 +43,7 @@
     time        datetime,
     primary key (record_ID),
     foreign key (patient_ID) references patient (patient_ID),
+    foreign key (bed_ID) references bed (bed_ID),
     foreign key (recorder_ID) references user (user_ID),
     foreign key (result_ID) references nucleic_acid_testing_result (result_ID)
   );

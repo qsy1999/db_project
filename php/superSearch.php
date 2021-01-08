@@ -26,17 +26,39 @@ $where = 'where';
 if($target == '0'){
     if($area == '0'){
         if ($special == '0'){
-            $sql = 'select patient.patient_ID, patient.name, nucleic_acid_testing_result.level from patient join nucleic_acid_testing_result where patient.patient_ID = nucleic_acid_testing_result.patient_ID and nucleic_acid_testing_result.result_ID = (select max(nucleic_acid_testing_result.result_ID) from nucleic_acid_testing_result where nucleic_acid_testing_result.patient_ID = patient.patient_ID);'
+            $sql = 'select patient.patient_ID, patient.name, bed.treatment_area from patient natural join bed join nucleic_acid_testing_result where patient.patient_ID = nucleic_acid_testing_result.patient_ID and nucleic_acid_testing_result.result_ID = (select max(nucleic_acid_testing_result.result_ID) from nucleic_acid_testing_result where nucleic_acid_testing_result.patient_ID = patient.patient_ID);';
         }
         if($special == '1'){
-            $sql = 'select patient.patient_ID, patient.name, nucleic_acid_testing_result.level from patient join nucleic_acid_testing_result where patient.patient_ID = nucleic_acid_testing_result.patient_ID and nucleic_acid_testing_result.result_ID = (select max(nucleic_acid_testing_result.result_ID) from nucleic_acid_testing_result where nucleic_acid_testing_result.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.level = "mild";'
+            $sql = 'select patient.patient_ID, patient.name, bed.treatment_area from patient natural join bed join nucleic_acid_testing_result where patient.patient_ID = nucleic_acid_testing_result.patient_ID and nucleic_acid_testing_result.result_ID = (select max(nucleic_acid_testing_result.result_ID) from nucleic_acid_testing_result where nucleic_acid_testing_result.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.level = "mild";';
         }
         if($special == '2'){
-            $sql = 'select patient.patient_ID, patient.name, nucleic_acid_testing_result.level from patient join nucleic_acid_testing_result where patient.patient_ID = nucleic_acid_testing_result.patient_ID and nucleic_acid_testing_result.result_ID = (select max(nucleic_acid_testing_result.result_ID) from nucleic_acid_testing_result where nucleic_acid_testing_result.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.level = "intense";'
+            $sql = 'select patient.patient_ID, patient.name, bed.treatment_area from patient natural join bed join nucleic_acid_testing_result where patient.patient_ID = nucleic_acid_testing_result.patient_ID and nucleic_acid_testing_result.result_ID = (select max(nucleic_acid_testing_result.result_ID) from nucleic_acid_testing_result where nucleic_acid_testing_result.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.level = "intense";';
         }
         if($special == '3'){
-            $sql = 'select patient.patient_ID, patient.name, nucleic_acid_testing_result.level from patient join nucleic_acid_testing_result where patient.patient_ID = nucleic_acid_testing_result.patient_ID and nucleic_acid_testing_result.result_ID = (select max(nucleic_acid_testing_result.result_ID) from nucleic_acid_testing_result where nucleic_acid_testing_result.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.level = "critical";'
+            $sql = 'select patient.patient_ID, patient.name, bed.treatment_area from patient natural join bed join nucleic_acid_testing_result where patient.patient_ID = nucleic_acid_testing_result.patient_ID and nucleic_acid_testing_result.result_ID = (select max(nucleic_acid_testing_result.result_ID) from nucleic_acid_testing_result where nucleic_acid_testing_result.patient_ID = patient.patient_ID) and nucleic_acid_testing_result.level = "critical";';
         }
+        if($special == '4'){
+            $sql = 'select patient.patient_ID, patient.name, bed.treatment_area from patient natural join bed join message where message.patient_ID = patient.patient_ID;';
+        }
+        if($special == '5'){
+            $sql = 'select patient.patient_ID, patient.name, bed.treatment_area from patient natural join bed join message where patient.patient_ID not in (select patient.patient_ID from patient natural join bed join message where message.patient_ID = patient.patient_ID);';
+        }
+        if($special == '6'){
+
+        }
+        if($special == '7'){
+
+        }
+        if($special == '8'){
+
+        }
+        if($special == '9'){
+
+        }
+        if($special == '10'){
+            
+        }
+
     }
 }
 target 0 area 0 special 0;
