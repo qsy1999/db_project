@@ -64,6 +64,27 @@
                   placeholder="病人名字"></el-input>
       </el-form-item>
       <el-form-item >
+        <el-date-picker
+            v-model="patientInfoForm.time"
+            type="datetime"
+            placeholder="登记时间">
+        </el-date-picker>
+      </el-form-item>
+            <el-form-item >
+        <el-input type="text"
+                  prefix-icon="el-icon-lock"
+                  v-model="patientInfoForm.temperature"
+                  auto-complete="off"
+                  placeholder="体温"></el-input>
+      </el-form-item>
+            <el-form-item >
+        <el-input type="text"
+                  prefix-icon="el-icon-lock"
+                  v-model="patientInfoForm.symptom"
+                  auto-complete="off"
+                  placeholder="症状"></el-input>
+      </el-form-item>
+      <el-form-item >
         <el-input type="text"
                   prefix-icon="el-icon-lock"
                   v-model="patientInfoForm.NACheck_result"
@@ -109,6 +130,9 @@
         password_2:'',
         patientInfoForm:{
             name: '',
+            temperature:'',
+            symptom:'',
+            time:'',
             NACheck_result: '',
             NACheck_time: '',
             level:'',
@@ -153,6 +177,9 @@
           this.$axios.post('/api/receivePatient.php',{
           	  id:this.id,
           	  name:this.patientInfoForm.name,
+              temperature:this.patientInfoForm.temperature,
+              symptom:this.patientInfoForm.symptom,
+              time:this.patientInfoForm.time,
           	  NACheck_result:this.patientInfoForm.NACheck_result,
               NACheck_time:this.patientInfoForm.NACheck_time,
           	  level:this.patientInfoForm.level,

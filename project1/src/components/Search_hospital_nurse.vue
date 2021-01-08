@@ -2,16 +2,19 @@
   <div style="border-radius:15px;background:#ffffff;min-height:500px">
 
           <el-radio-group v-model="special" style="margin:50px 0 0 100px">
-            <el-radio-button label="0" @click.native="specialSearch">不启用此筛选项</el-radio-button>
+            <el-radio-button label="0" >不启用此筛选项</el-radio-button>
             <el-radio-button label="" disabled><i class="el-icon-caret-right"></i></el-radio-button>
-            <el-radio-button label="4" @click.native="specialSearch">已可出院</el-radio-button>
-            <el-radio-button label="5" @click.native="specialSearch">不可出院</el-radio-button>
+            <el-radio-button label="4">已可出院</el-radio-button>
+            <el-radio-button label="5" >不可出院</el-radio-button>
 
             <el-radio-button label="" disabled><i class="el-icon-caret-right"></i></el-radio-button>
-            <el-radio-button label="8" @click.native="specialSearch">康复出院</el-radio-button>
-            <el-radio-button label="9" @click.native="specialSearch">正在治疗</el-radio-button>
-            <el-radio-button label="10" @click.native="specialSearch">&nbsp&nbsp&nbsp&nbsp病亡&nbsp&nbsp&nbsp&nbsp</el-radio-button>
+            <el-radio-button label="8" >康复出院</el-radio-button>
+            <el-radio-button label="9" >正在治疗</el-radio-button>
+            <el-radio-button label="10" >&nbsp&nbsp&nbsp&nbsp病亡&nbsp&nbsp&nbsp&nbsp</el-radio-button>
           </el-radio-group>
+
+        <el-button style="margin:0 0 0 180px;background:#00000008" @click.native="specialSearch">刷新</el-button>      
+
 
 
     <q-table :tableData='tableData' :type='target' :auth='3' :id='id' v-if="target!='-1'"></q-table>

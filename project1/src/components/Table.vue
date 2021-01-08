@@ -238,20 +238,29 @@ export default {
         var id = row.id;
 
         if (this.type == 2) {
-           this.$axios.post('/api/superSearch.php',{
-             target:0,
-             area:0,
-             special:0,
-             selector:3,
-             selector_value:id
+           this.$axios.post('/api/getPatientFromBed.php',{
+              bed_ID:id
            }).then((response) => {
              console.log(response);
              console.log(response.data);
-             id=response.data[0].id;
+             id=response.data.id;
+              this.detail.id = id;
+              this.detail.name = row.name;
+              this.$axios.post('/api/getPatientStatusHistory.php',{
+	               id:id,
+                }).then((response) => {
+                   console.log(response);
+                   console.log(response.data);
+                   this.detail.history = response.data[0];
+                   this.detail.result = response.data[1];
+
+                   }).catch((error) => {
+                   console.log(error);
+               });
              }).catch((error) => {
              console.log(error);
           });
-        }
+        }else{
         this.detail.id = id;
         this.detail.name = row.name;
         this.$axios.post('/api/getPatientStatusHistory.php',{
@@ -265,6 +274,7 @@ export default {
              }).catch((error) => {
              console.log(error);
           });
+        }
       },
       dismiss(row)
       {

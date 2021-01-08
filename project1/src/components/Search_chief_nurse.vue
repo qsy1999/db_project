@@ -117,6 +117,7 @@ export default {
   methods:{
       changeSearchTarget(target)
       {
+        this.tableData=[];
         this.target=target;
       },
 

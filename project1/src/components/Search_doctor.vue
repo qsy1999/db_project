@@ -60,11 +60,11 @@
         <el-option label="姓名" value="1"></el-option>
         <el-option label="ID" value="2"></el-option>
        </el-select>
-       <el-button slot="append" icon="el-icon-search"></el-button>
+       <el-button slot="append" icon="el-icon-search" @click.native="searchWithSelectorValue"></el-button>
       </el-input>
 
-      <el-button style="margin:30px 0 0 10px;background:#00000008">查询本区所有病房护士</el-button>      
-      <el-button style="margin:30px 0 0 10px;background:#00000008">查询本区护士长</el-button>
+      <el-button style="margin:30px 0 0 10px;background:#00000008" @click.native="searchWithoutSelectorValue">查询本区所有病房护士</el-button>      
+      <el-button style="margin:30px 0 0 10px;background:#00000008" @click.native="searchWithoutSelectorValue">查询本区护士长</el-button>
     </div>
     <q-table :tableData='tableData' :type='target' :auth='0' :id='id' v-if="target!='-1'"></q-table>
 
@@ -105,11 +105,13 @@ export default {
   methods:{
       changeSearchTarget(target)
       {
+        this.tableData=[];
         this.target=target;
       },
 
       superSearch (target,area,special,selector,selector_value) 
       {
+        
           this.$axios.post('/api/superSearch.php',{
              target:target,
              area:area,
@@ -131,6 +133,7 @@ export default {
       },
       searchWithoutSelectorValue()
       {
+        console.log(this.area);
         this.superSearch(this.target,this.area,this.special,0,0);
       }
 
