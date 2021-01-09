@@ -6,6 +6,11 @@
     <q-search v-if="content=='0'" :id='id' :auth='type' :area='area'></q-search>
     <q-add v-if="content=='1'||content=='2'" :id='id' :area='area' :type='type'></q-add>
     <q-info-change :id='id' v-if="content=='3'"></q-info-change>
+    <div v-if="content==4">
+      <span class="title" v-if="type=='doctor'">以下病人已经满足出院条件</span>
+      <span class="title" v-if="type=='chief nurse'">以下病人转来该治疗区域</span>
+      <q-table></q-table>
+    </div>
   </div>
 
   <q-footer></q-footer>
@@ -22,6 +27,7 @@ import Nav from '@/components/Nav'
 import Search from '@/components/Search'
 import InfoChange from '@/components/InfoChange'
 import Add from '@/components/Add'
+import Table from '@/components/Table'
 
 
 
@@ -33,6 +39,7 @@ export default {
     'q-search':Search,
     'q-info-change':InfoChange,
     'q-add':Add,
+    'q-table':Table,
   },
   
   data () {
@@ -65,5 +72,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  .title{
+    margin:20px 0 0 350px;
+    font-size:300%;
+  }
 </style>

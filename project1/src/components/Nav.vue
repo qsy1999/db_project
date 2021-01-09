@@ -13,7 +13,7 @@
     </span>
     <el-dropdown-menu slot="dropdown">
       <el-dropdown-item @click.native="changeContent(3);"><i class="el-icon-upload2"></i>修改信息</el-dropdown-item>
-      <el-dropdown-item  v-if="auth=='chief nurse'||auth=='doctor'"><i class="el-icon-bell"></i>消息</el-dropdown-item>
+      <el-dropdown-item @click.native="changeContent(4);" v-if="auth=='chief nurse'||auth=='doctor'"><i class="el-icon-bell"></i>消息</el-dropdown-item>
       <el-dropdown-item ><i class="el-icon-user"></i>登出</el-dropdown-item>
     </el-dropdown-menu>
    </el-dropdown>

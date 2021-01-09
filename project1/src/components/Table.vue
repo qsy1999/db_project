@@ -371,7 +371,7 @@ export default {
              if (response.data.stop==1) {
                return
              }else if (response.data.stop==0){
-               autoFill(response.data.newTo);
+               this.autoFill(response.data.newTo);
              }
              }).catch((error) => {
              console.log(error);
