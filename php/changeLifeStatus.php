@@ -43,9 +43,20 @@ if(!$result2||!$result1){
     else {
         
         
-        $msg=['success'=>'1'];
-        echo json_encode($msg);
+        
+        $sql = "delete from message where patient_ID = $id";
+        $result4 = $conn->query($sql);
+        
+        if(!$result4){
+            $msg=['success'=>'0'];
+            echo json_encode($sql);
+        }else{
+            $msg=['success'=>'1'];
+            echo json_encode($msg);
+        }
+        
     }
+   
 }
 
 mysqli_close($conn);
