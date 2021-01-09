@@ -72,7 +72,7 @@ export default {
   data () {
     return {
       area:'0',
-      target:'0',
+      target:0,
       special:'0',
       selector:'0',
       selector_value:'',

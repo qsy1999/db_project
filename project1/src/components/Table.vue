@@ -43,10 +43,12 @@
       <br>
       <div style="margin:20px 0 0 50px">
       <el-button type="success" size="small" @click="changeShow()">切换&nbsp状态/核酸检测单</el-button>
+      <div v-if="detail.currentStatus=='treating'" style="margin:20px 0 0 0px">
       <el-button type="primary" size="small" v-if="auth==0" @click="show=2">添加新核酸检测记录</el-button>
       <el-button type="primary" size="small" v-if="auth==3" @click="show=3">&nbsp&nbsp&nbsp&nbsp信息登记&nbsp&nbsp&nbsp&nbsp</el-button>
       <el-button type="primary" size="small" v-if="auth==0" @click="changeLifeStatus('dead')">确认病人死亡</el-button>
-      <el-button type="primary" size="small" v-if="auth==0" @click="changeLifeStatus('discharged')">允许病人出院</el-button>
+      <el-button type="primary" size="small" v-if="auth==0 && detail.dischargable==true" @click="changeLifeStatus('discharged')">允许病人出院</el-button>
+      </div>
       </div>
       <br>
       <el-table
@@ -274,7 +276,8 @@ export default {
              console.log(response.data);
              this.detail.history = response.data[0];
              this.detail.result = response.data[1];
-
+             this.detail.currentStatus = response.data[2].life_status;
+             this.detail.dischargable =response.data[3].dischargeable;
              }).catch((error) => {
              console.log(error);
           });
@@ -313,6 +316,9 @@ export default {
                alert('失败');
              }else if (response.data.success=="1") {
                alert('成功');
+
+               this.autoFillFromIA();               
+               this.autoFill(this.detail.area);
              }
 
              }).catch((error) => {
@@ -332,6 +338,7 @@ export default {
                alert('失败');
              }else if (response.data.success=="1") {
                alert('成功');
+               this.autoFillFromIA();               
                this.autoFill(this.detail.area);
              }
 
@@ -355,6 +362,7 @@ export default {
                alert('失败');
              }else if (response.data.success=="1") {
                alert('成功');
+
              }
 
              }).catch((error) => {
@@ -379,6 +387,20 @@ export default {
              console.log(error);
           });
       },
+
+      autoFillFromIA()
+      {
+        this.$axios.post('/api/autoFillFromIA.php',{
+           }).then((response) => {
+             console.log(response);
+             console.log(response.data);
+
+             }).catch((error) => {
+             console.log(error);
+          });
+      },
+
+      
 
       changeShow()
       {

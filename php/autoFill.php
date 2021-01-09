@@ -39,6 +39,14 @@ else{
         $sql = "UPDATE bed set `patient_ID` = $id WHERE `bed_ID` = $bed_ID";
         $result = $conn->query($sql);
 
+         
+        $sql = "select user_ID from user where type = 'chief nurse' and treatment_area = '$to' ";
+        $result6 = $conn->query($sql);
+        $row6 = mysqli_fetch_assoc($result6);
+        $chief_ID = $row6['user_ID'];
+        $sql = "insert into message (patient_ID, towards) values ($id,$chief_ID) ";
+        $result7 = $conn->query($sql);
+
         $msg=['stop'=>0,'newTo'=>$newTo];
         echo json_encode($msg);
     }

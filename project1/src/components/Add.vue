@@ -165,6 +165,8 @@
                alert('创建失败');
              }else if (response.data.success=="1") {
                alert('创建成功');
+               this.autoFillFromIA();               
+               this.autoFill(this.detail.area);
              }
 
              }).catch((error) => {
@@ -195,7 +197,36 @@
              }).catch((error) => {
              console.log(error);
           });
-      }
+      },
+      autoFill(to)
+      {
+          console.log(to);
+         this.$axios.post('/api/autoFill.php',{
+            to:to,
+           }).then((response) => {
+             console.log(response);
+             console.log(response.data);
+             if (response.data.stop==1) {
+               return
+             }else if (response.data.stop==0){
+               this.autoFill(response.data.newTo);
+             }
+             }).catch((error) => {
+             console.log(error);
+          });
+      },
+
+      autoFillFromIA()
+      {
+        this.$axios.post('/api/autoFillFromIA.php',{
+           }).then((response) => {
+             console.log(response);
+             console.log(response.data);
+
+             }).catch((error) => {
+             console.log(error);
+          });
+      },
     },
     mounted(){
         this.mode=this.type;

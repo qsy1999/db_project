@@ -64,7 +64,7 @@
       </el-input>
 
       <el-button style="margin:30px 0 0 10px;background:#00000008" @click.native="searchWithoutSelectorValue">查询本区所有病房护士</el-button>      
-      <el-button style="margin:30px 0 0 10px;background:#00000008" @click.native="searchWithoutSelectorValue">查询本区护士长</el-button>
+      <el-button style="margin:30px 0 0 10px;background:#00000008" @click.native="searchForChief">查询本区护士长</el-button>
     </div>
     <q-table :tableData='tableData' :type='target' :auth='0' :id='id' v-if="target!='-1'"></q-table>
 
@@ -107,6 +107,19 @@ export default {
       {
         this.tableData=[];
         this.target=target;
+      },
+
+      searchForChief()
+      {
+        this.$axios.post('/api/searchForChief.php',{  
+             area:this.area_type,
+           }).then((response) => {
+             console.log(response);
+             console.log(response.data);
+             this.tableData=response.data;
+             }).catch((error) => {
+             console.log(error);
+          });
       },
 
       superSearch (target,area,special,selector,selector_value) 

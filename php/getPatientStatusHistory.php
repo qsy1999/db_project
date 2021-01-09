@@ -56,14 +56,14 @@ array_push($set_res,$set,$set2);
 $sql = "select life_status from patient_status where patient_ID = '$id' order by record_ID desc limit 1 ";
 $result = $conn->query($sql);
 $row = mysqli_fetch_assoc($result);
-array_push($result, $row);
+array_push($set_res, $row);
 $sql = "select distinct patient_ID from message where patient_ID = '$id'   ";
 $result = $conn->query($sql);
 $row = mysqli_fetch_assoc($result);
 if(!$row){
-    array_push($result, ['dischargeable'=>false]);
+    array_push($set_res, ['dischargeable'=>false]);
 }else{
-    array_push($result, ['dischargeable'=>true]);
+    array_push($set_res, ['dischargeable'=>true]);
 }
 
 

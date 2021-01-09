@@ -132,6 +132,9 @@ else if($target == '2'){
         $sql .= "and bed.treatment_area = 'critical'";
     }
 }
+
+if($area == '1'&&($special=='0'||$special=='5'||$special=='9')) $sql = "select distinct patient.patient_ID, patient.name, patient.treatment_area from patient join bed where patient.patient_ID not in (select patient.patient_ID from patient join message join bed where message.patient_ID = patient.patient_ID and bed.patient_ID = patient.patient_ID ) and patient.treatment_area = 'isolated area' ";
+if($area == '0'&& $special=='0') $sql = "select patient_ID,name,treatment_area from patient";
 $set = array();
 $result = $conn->query($sql);
 

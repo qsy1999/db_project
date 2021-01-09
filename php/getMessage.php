@@ -17,7 +17,7 @@ $requests = !empty($postData) ? json_decode($postData, true) : array();
 $target = $requests['target'];
 
 
-$sql = "select patient.* from message , patient where message.towards = $target and message.patient_ID = patient.patient_ID";
+$sql = "select distinct patient.* from message , patient where message.towards = $target and message.patient_ID = patient.patient_ID";
 $result = $conn->query($sql);
 $set = array();
 if(!$result){

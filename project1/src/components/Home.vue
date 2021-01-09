@@ -9,7 +9,7 @@
     <div v-if="content==4">
       <span class="title" v-if="type=='doctor'">以下病人已经满足出院条件</span>
       <span class="title" v-if="type=='chief nurse'">以下病人转来该治疗区域</span>
-      <q-table></q-table>
+      <q-table :type='tabType' :tableData='tableData' :id='id' :auth='auth'></q-table>
     </div>
   </div>
 
@@ -48,7 +48,10 @@ export default {
       id: '0',
       name: 'this.this.$route.params.name',
       type:'doctor',
-      area:'0'
+      area:'0',
+      auth:2,
+      tabType:0,
+      tableData:[],
     }
   },  
   methods:{
@@ -57,6 +60,18 @@ export default {
       this.content=e;
       console.log(this.type);
       console.log(this.area);
+      if (this.content==4) {
+          this.$axios.post('/api/getMessage.php',{
+	          target:this.id,
+           }).then((response) => {
+             console.log(response);
+             console.log(response.data);
+             this.tableData = response.data;
+
+             }).catch((error) => {
+             console.log(error);
+          });
+      }
     }
   },
 
