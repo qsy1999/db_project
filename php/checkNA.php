@@ -55,8 +55,10 @@ $tre = [];
 while(($row = mysqli_fetch_assoc($result))){
     array_push($tre,$row);   
 }
-
-if($nuc[0]['result'] =='negative' && $nuc[1]['result'] == 'negative' && (strtotime($nuc[0]['time']) - strtotime($nuc[1]['time']) > 3600000)&& $tre[0]['treatment_area'] == 'mild' && $tem[0]['temperature'] <37.3 && $tem[1]['temperature'] <37.3 && $tem[2]['temperature'] <37.3){
+if(sizeof($nuc) != 2 ||sizeof($tem) != 3 || sizeof($tre) != 1){
+    echo json_encode('not leave')
+}
+else if($nuc[0]['result'] =='negative' && $nuc[1]['result'] == 'negative' && (strtotime($nuc[0]['time']) - strtotime($nuc[1]['time']) > 3600000)&& $tre[0]['treatment_area'] == 'mild' && $tem[0]['temperature'] <37.3 && $tem[1]['temperature'] <37.3 && $tem[2]['temperature'] <37.3){
     //find doctor of mild area
     $sql = "select user_ID from user where type = 'doctor' and treatment_area = 'mild' ";
     $result = $conn->query($sql);
