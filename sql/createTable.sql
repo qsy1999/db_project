@@ -76,7 +76,7 @@
   );
 
   create table message(
-    message_ID int,
+    message_ID int AUTO_INCREMENT,
     patient_ID int,
     towards int,
     primary key(message_ID),
