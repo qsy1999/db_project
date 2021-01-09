@@ -209,6 +209,8 @@ export default {
         id:'',
         name:'',
         area:'',
+        currentStatus:'',
+        dischargable:'',
         history:[],
         result:[],
       },
